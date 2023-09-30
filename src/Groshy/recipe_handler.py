@@ -1,5 +1,9 @@
+import re
+
 from recipe_scrapers import scrape_me
 from recipe_scrapers import _exceptions as exc
+
+from errors import BadURLError
 
 def get_recipe(url):
     try:
@@ -9,8 +13,25 @@ def get_recipe(url):
             recipe = scrape_me(url, wild_mode=True)
         except exc.NoSchemaFoundInWildMode:
             recipe = False
+            raise BadURLError
     finally:
         return recipe
+    
+def parse_ingredients(ingredients: list) -> list:
+
+    parsed = []
+
+    for ing in ingredients:
+        chop = ing.split(" ", maxsplit=2)
+        print(chop)
+        num = re.match('\d+[./\-]*?d*?', chop[1])
+        if num:
+            
+
+
+        # parsed.append(((chop[0], chop[1]), chop[2]))
+
+    return parsed
     
 
 if __name__ == "__main__":
