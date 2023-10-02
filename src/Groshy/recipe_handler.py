@@ -1,7 +1,9 @@
 import re
 
+import ingredient_parser as ip
 from recipe_scrapers import scrape_me
 from recipe_scrapers import _exceptions as exc
+
 
 from errors import BadURLError
 
@@ -20,16 +22,14 @@ def get_recipe(url):
 def parse_ingredients(ingredients: list) -> list:
 
     parsed = []
+    gredient = dict.fromkeys(["name", "amount", "unit"])
+    units = ["teaspoon", "tablespoon", "cup", "lb", "oz", "gram", "quart", "pint"]
+
+    num_rgx = re.compile(r'\d+[./\-]*?d*?')
 
     for ing in ingredients:
-        chop = ing.split(" ", maxsplit=2)
-        print(chop)
-        num = re.match('\d+[./\-]*?d*?', chop[1])
-        if num:
-            
-
-
-        # parsed.append(((chop[0], chop[1]), chop[2]))
+        pi = ip.parse_ingredient(ing)
+        parsed.append(pi)
 
     return parsed
     

@@ -10,7 +10,7 @@ class Recipe():
         self.category = self.scraped.category()
         self.cooking_time = self.scraped.total_time()
         self.servings = self.scraped.yields()
-        self.ingredients = parse_ingredients()
+        self.ingredients = parse_ingredients(self.scraped.ingredients())
 
 if __name__ == "__main__":
 
@@ -24,7 +24,6 @@ if __name__ == "__main__":
     print(snkrddl.category)
     print(str(snkrddl.cooking_time) + " Min")
     print(snkrddl.servings)
-    snkrddl.parse_ingredients()
 
     for ing in snkrddl.ingredients:
         print(ing)
