@@ -1,5 +1,6 @@
 import re
 
+import nltk
 import ingredient_parser as ip
 from recipe_scrapers import scrape_me
 from recipe_scrapers import _exceptions as exc
@@ -22,10 +23,7 @@ def get_recipe(url):
 def parse_ingredients(ingredients: list) -> list:
 
     parsed = []
-    gredient = dict.fromkeys(["name", "amount", "unit"])
-    units = ["teaspoon", "tablespoon", "cup", "lb", "oz", "gram", "quart", "pint"]
-
-    num_rgx = re.compile(r'\d+[./\-]*?d*?')
+    nltk.download('averaged_perceptron_tagger', "./nltk-packages/", True)
 
     for ing in ingredients:
         pi = ip.parse_ingredient(ing)
@@ -41,12 +39,8 @@ if __name__ == "__main__":
 
     recipe = get_recipe(url)
     
-    if recipe is False:
-        print("Sorry Chap :(")
-    else:
-        print(f"""
-              {recipe.title()}
-              {recipe.category()}
-              {recipe.cook_time()}
-              {recipe.ingredients()}
-              """)
+    pi = parse_ingredients(recipe.ingredients())
+
+    for ing in pi:
+        print(ing)
+        print(ing.name)
