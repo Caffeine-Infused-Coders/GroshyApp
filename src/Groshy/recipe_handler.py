@@ -8,6 +8,7 @@ from recipe_scrapers import _exceptions as exc
 
 from errors import BadURLError
 
+
 def get_recipe(url):
     try:
         recipe = scrape_me(url)
@@ -19,15 +20,24 @@ def get_recipe(url):
             raise BadURLError
     finally:
         return recipe
-    
-def parse_ingredients(ingredients: list) -> list:
+
+
+def get_ingredients(ingredients: list) -> list:
 
     parsed = []
     nltk.download('averaged_perceptron_tagger', "./nltk-packages/", True)
 
     for ing in ingredients:
+        ingredient = dict.fromkeys(["name", "amount", "unit"])
+
         pi = ip.parse_ingredient(ing)
-        parsed.append(pi)
+        amnt_dt = pi.amount[0]
+
+        ingredient["name"] = pi.name.text
+        ingredient["amount"] = amnt_dt.quantity
+        ingredient["unit"] = amnt_dt.unit
+
+        parsed.append(ingredient)
 
     return parsed
     
@@ -39,8 +49,7 @@ if __name__ == "__main__":
 
     recipe = get_recipe(url)
     
-    pi = parse_ingredients(recipe.ingredients())
+    pi = get_ingredients(recipe.ingredients())
 
     for ing in pi:
         print(ing)
-        print(ing.name)

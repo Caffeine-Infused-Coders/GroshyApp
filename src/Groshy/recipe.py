@@ -1,5 +1,6 @@
 import re
-from recipe_handler import get_recipe, parse_ingredients
+from recipe_handler import get_recipe, get_ingredients
+
 
 class Recipe():
     def __init__(self, url):
@@ -10,7 +11,8 @@ class Recipe():
         self.category = self.scraped.category()
         self.cooking_time = self.scraped.total_time()
         self.servings = self.scraped.yields()
-        self.ingredients = parse_ingredients(self.scraped.ingredients())
+        self.ingredients = get_ingredients(self.scraped.ingredients())
+
 
 if __name__ == "__main__":
 
