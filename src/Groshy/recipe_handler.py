@@ -27,15 +27,19 @@ def get_ingredients(ingredients: list) -> list:
     parsed = []
     nltk.download('averaged_perceptron_tagger', "./nltk-packages/", True)
 
-    for ing in ingredients:
+    for gredient in ingredients:
         ingredient = dict.fromkeys(["name", "amount", "unit"])
 
-        pi = ip.parse_ingredient(ing)
-        amnt_dt = pi.amount[0]
+        parsed_ingredient = ip.parse_ingredient(gredient)
 
-        ingredient["name"] = pi.name.text
-        ingredient["amount"] = amnt_dt.quantity
-        ingredient["unit"] = amnt_dt.unit
+        try:
+            ingredient_amount = parsed_ingredient.amount[0]
+        except IndexError:
+            ingredient_amount =
+
+        ingredient["name"] = parsed_ingredient.name.text
+        ingredient["amount"] = ingredient_amount.quantity
+        ingredient["unit"] = ingredient_amount.unit
 
         parsed.append(ingredient)
 
