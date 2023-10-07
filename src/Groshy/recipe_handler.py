@@ -25,7 +25,7 @@ def get_recipe(url):
 def get_ingredients(ingredients: list) -> list:
 
     parsed = []
-    nltk.download('averaged_perceptron_tagger', "./nltk-packages/", True)
+    nltk.download('averaged_perceptron_tagger', quiet=True)
 
     for gredient in ingredients:
         ingredient = dict.fromkeys(["name", "amount", "unit"])
@@ -35,11 +35,16 @@ def get_ingredients(ingredients: list) -> list:
         try:
             ingredient_amount = parsed_ingredient.amount[0]
         except IndexError:
-            ingredient_amount =
+            ingredient_amount = "some"
+            pass
 
         ingredient["name"] = parsed_ingredient.name.text
-        ingredient["amount"] = ingredient_amount.quantity
-        ingredient["unit"] = ingredient_amount.unit
+        if ingredient_amount == "some":
+            ingredient["amount"] = ingredient_amount
+            ingredient["unit"] = "N/A"
+        else:
+            ingredient["amount"] = ingredient_amount.quantity
+            ingredient["unit"] = ingredient_amount.unit
 
         parsed.append(ingredient)
 
