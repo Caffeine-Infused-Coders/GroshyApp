@@ -6,7 +6,7 @@ from recipe_scrapers import scrape_me
 from recipe_scrapers import _exceptions as exc
 
 
-from errors import BadURLError
+from Groshy.errors import BadURLError
 
 
 def get_recipe(url):
@@ -53,7 +53,7 @@ def get_ingredients(ingredients: list) -> list:
 
 if __name__ == "__main__":
 
-    #url = "https://thefirstyearblog.wordpress.com/2013/02/09/homemade-cinnamon-graham-crackers/comment-page-1/" # This link does not work
+    # url = "https://thefirstyearblog.wordpress.com/2013/02/09/homemade-cinnamon-graham-crackers/comment-page-1/" # This link does not work
     url = "https://www.thediaryofarealhousewife.com/snickerdoodle-dip/" # This works thanks to wild mode
 
     recipe = get_recipe(url)
@@ -62,3 +62,5 @@ if __name__ == "__main__":
 
     for ing in pi:
         print(ing)
+
+        

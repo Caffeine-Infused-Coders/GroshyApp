@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "shoppinglistapp"
+version = "0.1.0"
+description = ""
+authors = ["Ty <freemanty27@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+recipe-scrapers = "^14.50.2"
+ingredient-parser-nlp = "^0.1.0b5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

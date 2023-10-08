@@ -1,23 +1,38 @@
-import re
+from dataclasses import dataclass
+
 from recipe_handler import get_recipe, get_ingredients
 
 
-class Recipe():
-    def __init__(self, url):
+@dataclass
+class Recipe:
 
-        self.scraped = get_recipe(url)
+    name: str
+    description: str
+    ingredients: list
+    instructions: list[str]
+    instructions: list[str]
+    cuisine: str
+    category: str
+    servings: int = None
+    cooking_time: int = None
 
-        self.name = self.scraped.title()
-        self.category = self.scraped.category()
-        self.cooking_time = self.scraped.total_time()
-        self.servings = self.scraped.yields()
-        self.ingredients = get_ingredients(self.scraped.ingredients())
+    def to_dict(self):
+        return {
+            "recipe": {
+                "name": self.name,
+                "description": self.description
+                "category": self.category,
+                "cooking_time": self.cooking_time,
+                "servings": self.servings,
+                "ingredients": self.ingredients
+            }
+        }
 
 
 if __name__ == "__main__":
 
     # url = "https://thefirstyearblog.wordpress.com/2013/02/09/homemade-cinnamon-graham-crackers/comment-page-1/" # This link does not work
-    link = "https://www.thediaryofarealhousewife.com/snickerdoodle-dip/" # This works thanks to wild mode
+    link = "https://www.thediaryofarealhousewife.com/snickerdoodle-dip/"  # This works thanks to wild mode
     link = "https://somuchfoodblog.com/apple-cider-braised-pork-shoulder/"
 
     snkrddl = Recipe(link)
@@ -29,4 +44,3 @@ if __name__ == "__main__":
 
     for ing in snkrddl.ingredients:
         print(ing)
-
