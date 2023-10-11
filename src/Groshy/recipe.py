@@ -1,18 +1,17 @@
 from dataclasses import dataclass
 
-from recipe_handler import get_recipe, get_ingredients
+from ingredient import Ingredient
 
 
 @dataclass
 class Recipe:
-
     name: str
     description: str
-    ingredients: list
-    instructions: list[str]
+    ingredients: list[dict]
     instructions: list[str]
     cuisine: str
     category: str
+    price: float
     servings: int = None
     cooking_time: int = None
 
@@ -20,13 +19,23 @@ class Recipe:
         return {
             "recipe": {
                 "name": self.name,
-                "description": self.description
+                "description": self.description,
+                "cuisine": self.cuisine,
                 "category": self.category,
-                "cooking_time": self.cooking_time,
                 "servings": self.servings,
-                "ingredients": self.ingredients
+                "price": self.price,
+                "cooking_time": self.cooking_time,
+                "ingredients": self.ingredients,
+                "instructions": self.instructions,
             }
         }
+
+    def build_ingredients(self):
+
+        ingredients_list = []
+        for x in self.ingredients:
+            ingredients_list.append(Ingredient(x["name"]))
+
 
 
 if __name__ == "__main__":
