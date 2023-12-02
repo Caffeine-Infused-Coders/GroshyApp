@@ -1,40 +1,27 @@
 from dataclasses import dataclass
 
-from ingredient import Ingredient
+from pydantic import BaseModel
+from groshy.ingredient import Ingredient
 
 
-@dataclass
-class Recipe:
+class Recipe(BaseModel):
     name: str
     description: str
     ingredients: list[dict]
     instructions: list[str]
     cuisine: str
     category: str
-    price: float
-    servings: int = None
-    cooking_time: int = None
-
-    def to_dict(self):
-        return {
-            "recipe": {
-                "name": self.name,
-                "description": self.description,
-                "cuisine": self.cuisine,
-                "category": self.category,
-                "servings": self.servings,
-                "price": self.price,
-                "cooking_time": self.cooking_time,
-                "ingredients": self.ingredients,
-                "instructions": self.instructions,
-            }
-        }
+    servings: int = 0
+    cooking_time: int = 0
+    price: float = 0.0
 
     def build_ingredients(self):
 
         ingredients_list = []
         for x in self.ingredients:
-            ingredients_list.append(Ingredient(x["name"]))
+            ingredients_list.append(Ingredient(name=x['name'], last_bought=None))
+
+        return ingredients_list
 
 
 

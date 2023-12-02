@@ -1,6 +1,6 @@
 import argparse
 
-from Groshy.recipe import Recipe
+from groshy.recipe import Recipe
 
 parser = argparse.ArgumentParser(description="A tool to collect recipes")
 

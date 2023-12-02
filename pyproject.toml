@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "shoppinglistapp"
+name = "Groshy"
 version = "0.1.0"
 description = ""
 authors = ["Ty <freemanty27@gmail.com>"]
@@ -10,6 +10,7 @@ python = "^3.11"
 recipe-scrapers = "^14.50.2"
 ingredient-parser-nlp = "^0.1.0b5"
 ruff = "^0.0.292"
+pydantic = "^2.5.1"
 
 
 [build-system]
