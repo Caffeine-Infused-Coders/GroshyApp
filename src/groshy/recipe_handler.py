@@ -55,6 +55,8 @@ def extract_recipe_fields(recdict: dict):
             print(f"Recipe {recdict['title']} does not have attribute {ex}")
             if field == 'description':
                 rec_dict[field] = recdict['title']
+            elif field == 'cuisine':
+                rec_dict[field] = recdict['category']
 
     return rec_dict
 

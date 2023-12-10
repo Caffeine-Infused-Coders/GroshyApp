@@ -11,7 +11,7 @@ class Recipe(BaseModel):
     instructions: list[str]
     cuisine: str
     category: str
-    servings: int = 0
+    yields: int = 0
     cooking_time: int = 0
     price: float = 0.0
 

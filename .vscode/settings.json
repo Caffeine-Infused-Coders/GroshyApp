@@ -1,4 +1,12 @@
 {
     "python.analysis.typeCheckingMode": "basic",
-    "python.analysis.autoImportCompletions": true
+    "python.analysis.autoImportCompletions": true,
+    "files.autoSave": "afterDelay",
+    "editor.wordWrap": "on",
+    "workbench.commandPalette.experimental.suggestCommands": true,
+    "workbench.colorTheme": "Default Dark Modern",
+    "python.createEnvironment.contentButton": "show",
+    "python.testing.pytestEnabled": true,
+    "python.defaultInterpreterPath": "python",
+    "python.terminal.activateEnvInCurrentTerminal": true
 }

@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		}
+	],
+	"settings": {
+		"files.autoSave": "afterDelay",
+		"workbench.commandPalette.experimental.suggestCommands": true,
+		"workbench.colorTheme": "SynthWave '84"
+	}
+}
