@@ -1,4 +1,3 @@
-import re
 
 import nltk
 import ingredient_parser as ip
@@ -60,6 +59,7 @@ def extract_recipe_fields(recdict: dict):
 
     return rec_dict
 
+
 def test_unpacking(**kwargs):
     for k in kwargs.items():
         print(k)
@@ -77,7 +77,6 @@ def get_recipe(url) -> bool | Recipe:
             _rec = scrape_me(url, wild_mode=True)
             success = True
         except exc.NoSchemaFoundInWildMode:
-            recipe = False
             print("No SCHEMA")
             # raise BadURLError
     finally:

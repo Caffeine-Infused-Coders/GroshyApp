@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 
 from pydantic import BaseModel
 from groshy.ingredient import Ingredient
@@ -11,7 +10,7 @@ class Recipe(BaseModel):
     instructions: list[str]
     cuisine: str
     category: str
-    yields: int = 0
+    yields: str = '1 serving'
     cooking_time: int = 0
     price: float = 0.0
 
