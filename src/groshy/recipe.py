@@ -47,7 +47,7 @@ class Recipe(BaseModel):
             rec = _rec
             if success:
                 recd = _rec.to_json()
-                ingredients = Recipe.get_ingredients(recd)
+                ingredients = Recipe.gather_ingredients(recd)
                 recd.update({'ingredients': ingredients})
                 # test_unpacking(**recd)
                 recd = Recipe.extract_recipe_fields(recd)
@@ -55,8 +55,8 @@ class Recipe(BaseModel):
         
         return rec
     
-    @classmethod
-    def get_ingredients(cls, json_recipe: dict) -> list:
+    @staticmethod
+    def gather_ingredients(json_recipe: dict) -> list:
 
         parsed = []
         nltk.download('averaged_perceptron_tagger', quiet=True)
@@ -85,8 +85,8 @@ class Recipe(BaseModel):
 
         return parsed
 
-    @classmethod
-    def extract_recipe_fields(cls, recdict: dict):
+    @staticmethod
+    def extract_recipe_fields(recdict: dict):
         
         data_fields = ['title', 'description', 'ingredients', 'instructions', 'cuisine', 'category', 'yields', 'total_time']
 
