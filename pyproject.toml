@@ -12,6 +12,13 @@ ingredient-parser-nlp = "^0.1.0b5"
 ruff = "^0.0.292"
 pydantic = "^2.5.1"
 
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.3"
+
+
 
 [build-system]
 requires = ["poetry-core"]

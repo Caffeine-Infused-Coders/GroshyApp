@@ -1,0 +1,11 @@
+
+[paths]
+log = '/home/dev/ShoppingListApp/tests/logs/'
+
+[Recipe]
+urls = [
+    "https://www.thediaryofarealhousewife.com/snickerdoodle-dip/",
+    "https://somuchfoodblog.com/apple-cider-braised-pork-shoulder/",
+    "https://www.thediaryofarealhousewife.com/snickerdoodle-dip/",
+    "https://www.foodnetwork.com/recipes/food-network-kitchen/christmas-monster-cookies-3543357"
+]

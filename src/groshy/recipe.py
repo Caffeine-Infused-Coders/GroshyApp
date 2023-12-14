@@ -28,6 +28,7 @@ class Recipe(BaseModel):
 
         return ingredients_list
     
+
     @classmethod
     def get_recipe(cls, url) -> bool | Recipe:
         success = False
@@ -55,6 +56,7 @@ class Recipe(BaseModel):
         
         return rec
     
+
     @staticmethod
     def gather_ingredients(json_recipe: dict) -> list:
 
@@ -84,6 +86,7 @@ class Recipe(BaseModel):
             parsed.append(ingredient)
 
         return parsed
+
 
     @staticmethod
     def extract_recipe_fields(recdict: dict):
