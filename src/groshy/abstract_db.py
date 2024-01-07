@@ -34,24 +34,25 @@ class AbstractDB:
                 print(f"{self.name} created successfully")
                 result = True  # Signal creation of db
         except FileExistsError:
-            print(f"A cookbook named {self.name} already exists in location {self.dir}...")
+            print(f"A {self.type} named {self.name} already exists in location {self.dir}...")
 
             ans_flg = False
             attempts = 3
             while ans_flg is False and attempts > 0:
                 resp = input("Would you like to choose a different name? (y/n)")
 
-                if resp == "y":
-                    ans_flg = True
-                    self.name = input("Enter new name: ")
-                    result = self.build_db()
-                elif resp == "n":
-                    ans_flg = True
-                    print("Cookbook creation aborted")
-                else:
-                    print("Unexpected input, please try again.")
-                    attempts -= 1
-                    continue
+                match resp:
+                    case "yes" | "y":
+                        ans_flg = True
+                        self.name = input("Enter new name: ")
+                        result = self.build_db()
+                    case "no" | "n":
+                        ans_flg = True
+                        print(f"{self.type} creation aborted")
+                    case _:
+                        print("Unexpected input, please try again.")
+                        attempts -= 1
+                        continue
 
         return result
 
@@ -61,6 +62,7 @@ class AbstractDB:
         try:
             with open(self.path, "w") as db:
                 json.dump(msg, db, indent=4)
+                db.write("\n")
             success = True
         except FileNotFoundError:
             print(f"No database file found. Double check this location: {self.path}.json")
@@ -74,6 +76,7 @@ class AbstractDB:
         try:
             with open(self.path, "a") as db:
                 json.dump(msg, db, indent=4)
+                db.write("\n")
             success = True
         except FileNotFoundError:
             print(f"No database file found. Double check this location: {self.path}.json")
@@ -84,8 +87,8 @@ class AbstractDB:
     def db_read(self):
         contents = False
         try:
-            with open(self.path, "w") as db:
-                json.load(db)
+            with open(self.path, "r") as db:
+                contents = json.load(db)
         except FileNotFoundError:
             print(f"No database file found. Double check this location: {self.path}.json")
             pass

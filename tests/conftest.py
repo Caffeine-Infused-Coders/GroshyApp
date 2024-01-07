@@ -15,13 +15,9 @@ def read_config():
 @pytest.fixture
 def logger(request, read_config):
     log_path = read_config['paths']['log']
-
-
-    
+    func_name = request.function.__name__
+ 
 
 @pytest.fixture
 def get_urls(read_config):
-    urls = read_config['Recipe']['urls']
-
-    for url in urls:
-        yield url
+    return read_config['Recipe']['urls']
