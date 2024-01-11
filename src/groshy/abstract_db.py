@@ -31,8 +31,9 @@ class AbstractDB:
         try:
             with open(self.path, "x") as db:  # Create database json file and dump message
                 json.dump(msg, db, indent=4)
-                print(f"{self.name} created successfully")
-                result = True  # Signal creation of db
+                
+            print(f"{self.name} created successfully")
+            result = True  # Signal creation of db
         except FileExistsError:
             print(f"A {self.type} named {self.name} already exists in location {self.dir}...")
 

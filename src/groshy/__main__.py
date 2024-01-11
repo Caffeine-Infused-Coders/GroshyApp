@@ -1,47 +1,57 @@
+from pathlib import Path
+
 from groshy.recipe import Recipe
 from groshy.pantry import Pantry
 
 
 def main():
-    resp = input("Would you like to enter a recipe? (y/n): ")
+    while True:
+        resp = input("Would you like to enter a recipe? (y/n): ")
 
-    url = None
-    
-    match resp.lower():
-        case "yes" | "y":
-            url = str(input("Paste URL here: "))
-        case "no" | "n":
-            print("Bye")
-            exit()
-        case _:
-            print("Yikes, try again")
-            main()
-
-    if (rec := Recipe.get_recipe(url)) is not None:
-        print(f"Recipe Name: {rec.name}")
-        print(f"Recipe Category: {rec.category}")
-        print(f"Recipe Cooking Time: {rec.cooking_time}")
+        url = None
         
-        resp = input("Looks like we got some info. Does this look right? (y/n): ")
+        match resp.lower():
+            case "yes" | "y":
+                url = str(input("Paste URL here: "))
+            case "no" | "n":
+                print("Bye")
+                break
+            case _:
+                print("Yikes, try again")
+                continue
 
-        if resp.lower in ["no", "n"]:
-            print("Sorry about that, restarting program :(")
-            main()
+        if (rec := Recipe.get_recipe(url)) is not None:
+            print(f"Recipe Name: {rec.name}")
+            print(f"Recipe Category: {rec.category}")
+            print(f"Recipe Cooking Time: {rec.cooking_time}")
+            
+            resp = input("Looks like we got some info. Does this look right? (y/n): ")
 
-        print("Here are the ingredients")
-        for ing in rec.ingredients:
-            print(ing)
+            if resp.lower in ["no", "n"]:
+                print("Sorry about that, restarting program :(")
+                continue
+            else:
 
-        print("Adding ingredients to pantry")
-        ings = rec.build_ingredients()
-        pan = Pantry("bb1pantry", ings)
+                ckbk = input("Which cookbook would you like to ")
+                print("Saving Recipe...")
+                
 
-        print("Ta Da!")
-        print(pan.name)
-        for x in pan.contents:
-            print(x.model_dump_json())
+            print("Here are the ingredients")
+            for ing in rec.ingredients:
+                print(ing)
 
-    main()
+            print("Adding ingredients to pantry")
+            pantry_path = Path('/home/dev/ShoppingListApp/.dbs/pantry')
+            pantries = []
+            for root, dirs, file in pantry_path.iterdir():
+                pantries.append(file)
+            ings = rec.build_ingredients()
+            pan = Pantry("bb1pantry", ings)
+
+            print("Ta Da!")
+            print(pan.name)
+            for x in pan.contents:
+                print(x.model_dump_json())
 
 
 def question():
