@@ -4,9 +4,12 @@
     "files.autoSave": "afterDelay",
     "editor.wordWrap": "on",
     "workbench.commandPalette.experimental.suggestCommands": true,
-    "workbench.colorTheme": "Default Dark Modern",
+    "workbench.colorTheme": "SynthWave '84",
     "python.createEnvironment.contentButton": "show",
     "python.testing.pytestEnabled": true,
     "python.defaultInterpreterPath": "python",
-    "python.terminal.activateEnvInCurrentTerminal": true
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "projectManager.git.baseFolders": [
+        "~/dev/ShoppingListApp/"
+    ]
 }

@@ -1,29 +1,37 @@
 from pathlib import Path
 import json
+from abc import ABC, abstractmethod
 
 
-class AbstractDB:
-    def __init__(self, db_name: str, db_type: str):
-        cwd = Path.cwd()
-        db_root = Path.joinpath(cwd, ".dbs")
+class AbstractDB(ABC):
+    
+    cwd = Path.cwd()
+    db_root = Path.joinpath(cwd, ".dbs")
+    
+    def __init__(self, db_name: str, db_type: str, new: bool=False):
         self.name = db_name  # Define database name from argument
         self.type = db_type
-        self.dir = Path.joinpath(db_root, self.type)
+        self.dir = Path.joinpath(AbstractDB.db_root, self.type)
         self.path = Path.joinpath(self.dir, f"{self.name}.json")
+        self.data = {}
 
-        if not db_root.exists():
-            Path.mkdir(db_root)
-            Path.mkdir(self.dir)
-        elif db_root.exists() and not self.dir.exists():
-            Path.mkdir(self.dir)
+        if new:
+            if not AbstractDB.db_root.exists():
+                Path.mkdir(AbstractDB.db_root)
+                Path.mkdir(self.dir)
+            elif AbstractDB.db_root.exists() and not self.dir.exists():
+                Path.mkdir(self.dir)
 
-        if self.build_db():  # Build new database
-            print(f"{self.name} ready for use")
+            if self.build_db():  # Build new database
+                print(f"{self.name} ready for use")
+            else:
+                print(f"{self.name} could not be built")
+                self.db_remove()               
         else:
-            print(f"{self.name} could not be built")
-            self.db_remove()
+            self.data = self.db_read()
 
-    def build_db(self):
+
+    def build_db(self) -> bool:
 
         msg = {self.name: {}}  # Message to print in new database file
         result = False  # Default return value for this method
@@ -57,6 +65,7 @@ class AbstractDB:
 
         return result
 
+
     def db_write(self, msg):
 
         success = False
@@ -70,6 +79,7 @@ class AbstractDB:
             pass
 
         return success
+
 
     def db_add(self, msg):
 
@@ -85,8 +95,9 @@ class AbstractDB:
 
         return success
 
-    def db_read(self):
-        contents = False
+
+    def db_read(self) -> dict:
+        contents = {}
         try:
             with open(self.path, "r") as db:
                 contents = json.load(db)
@@ -96,7 +107,9 @@ class AbstractDB:
 
         return contents
 
+
     def db_remove(self):
+        """ Delete db from db repository. """
         success = False
         print(f"Removing {self.name} from {self.dir}")
         Path.unlink(self.path)
@@ -105,4 +118,11 @@ class AbstractDB:
             print(f"{self.name} removed...")
 
         return success
+    
+
+    @abstractmethod
+    @classmethod
+    def fetch_dbs(cls) -> list[str]:
+        pass
+
 

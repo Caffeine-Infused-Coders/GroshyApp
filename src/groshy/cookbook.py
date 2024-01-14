@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 import json
 
 from groshy.recipe import Recipe
@@ -6,8 +6,8 @@ from groshy.abstract_db import AbstractDB
 
 
 class CookBook(AbstractDB):
-    def __init__(self, db_name: str = "Cookbook1"):
-        super().__init__(db_name, "cookbook")
+    def __init__(self, newckbk: bool, db_name: str = "Cookbook1"):
+        super().__init__(db_name, "cookbook", newckbk)
 
 
     def save_recipe(self, recipe: Recipe):
@@ -17,12 +17,25 @@ class CookBook(AbstractDB):
         if self.db_add(json_recipe):
             print(f"Recipe saved to {self.name}")
 
+    @classmethod
+    def fetch_dbs(cls) -> list[str]:
+        """ Reads cookbook db filenames in cookbook directory, returns them as a list of strings."""
+
+        dbs = []
+
+        if Path.is_dir(path := Path.joinpath(AbstractDB.db_root, "cookbook")):
+            for db in path.iterdir():
+                dbs.append(db.name)
+
+        return dbs
+
+
     
 
 
 if __name__ == "__main__":
 
-    babys_first_cookbook = CookBook("bb1ckbk")
+    babys_first_cookbook = CookBook(True, "bb1ckbk")
 
     print(babys_first_cookbook.name)
     print(babys_first_cookbook.type)

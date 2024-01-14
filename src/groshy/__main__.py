@@ -1,11 +1,18 @@
 from pathlib import Path
+from groshy import cookbook
 
 from groshy.recipe import Recipe
+from groshy.cookbook import CookBook
 from groshy.pantry import Pantry
 
 
 def main():
     while True:
+
+        activeCookbook = None
+        activePantry = None
+
+        
         resp = input("Would you like to enter a recipe? (y/n): ")
 
         url = None
@@ -31,9 +38,16 @@ def main():
                 print("Sorry about that, restarting program :(")
                 continue
             else:
-
-                ckbk = input("Which cookbook would you like to ")
-                print("Saving Recipe...")
+                if ckbks := CookBook.fetch_dbs():
+                    print("Available CookBooks: ")
+                    for ckbk in ckbks:
+                        print(ckbk)
+                    ckbk = input("Which cookbook would you like to write your recipe into?")
+                    if ckbk in ckbks:
+                        activeCookbook = CookBook(False, ckbk)
+                    else:
+                        activeCookbook = CookBook(True, ckbk)
+                    print(f"Saving Recipe in {activeCookbook}")
                 
 
             print("Here are the ingredients")
@@ -43,7 +57,7 @@ def main():
             print("Adding ingredients to pantry")
             pantry_path = Path('/home/dev/ShoppingListApp/.dbs/pantry')
             pantries = []
-            for root, dirs, file in pantry_path.iterdir():
+            for file in pantry_path.iterdir():
                 pantries.append(file)
             ings = rec.build_ingredients()
             pan = Pantry("bb1pantry", ings)
