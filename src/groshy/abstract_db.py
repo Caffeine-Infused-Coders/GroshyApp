@@ -1,5 +1,5 @@
-from pathlib import Path
 import json
+from pathlib import Path
 from abc import ABC, abstractmethod
 
 
@@ -28,12 +28,15 @@ class AbstractDB(ABC):
                 print(f"{self.name} could not be built")
                 self.db_remove()               
         else:
-            self.data = self.db_read()
+            res = self.db_read()
+
+            if not res:
+                print(f"Could not access {self.name}")
 
 
     def build_db(self) -> bool:
 
-        msg = {self.name: {}}  # Message to print in new database file
+        msg = {}  # Message to print in new database file
         result = False  # Default return value for this method
 
         try:
@@ -47,13 +50,14 @@ class AbstractDB(ABC):
 
             ans_flg = False
             attempts = 3
-            while ans_flg is False and attempts > 0:
+            while not ans_flg and attempts > 0:
                 resp = input("Would you like to choose a different name? (y/n)")
 
                 match resp:
                     case "yes" | "y":
                         ans_flg = True
                         self.name = input("Enter new name: ")
+                        self.path = Path.joinpath(self.dir, self.name)
                         result = self.build_db()
                     case "no" | "n":
                         ans_flg = True
@@ -84,28 +88,36 @@ class AbstractDB(ABC):
     def db_add(self, msg):
 
         success = False
-        try:
-            with open(self.path, "a") as db:
-                json.dump(msg, db, indent=4)
-                db.write("\n")
-            success = True
-        except FileNotFoundError:
-            print(f"No database file found. Double check this location: {self.path}.json")
-            pass
+
+        if self.data is None:
+            try:
+                with open(self.path, "ra") as db:
+                    olddata = json.load(db)
+                    olddata.update(msg)
+                    json.dump(msg, db, indent=4)
+                    db.write("\n")
+                success = True
+            except FileNotFoundError:
+                print(f"No database file found. Double check this location: {self.path}.json")
+                pass
+        
+        else:
+            self.data.update(msg)
+
 
         return success
 
 
-    def db_read(self) -> dict:
-        contents = {}
+    def db_read(self) -> bool:
+        success = False
         try:
             with open(self.path, "r") as db:
-                contents = json.load(db)
+                self.data = json.load(db)
         except FileNotFoundError:
-            print(f"No database file found. Double check this location: {self.path}.json")
+            print(f"No database file found. Double check this location: {self.path}.json")  # TODO: make this a logging statement  # noqa: E501
             pass
 
-        return contents
+        return success
 
 
     def db_remove(self):
@@ -120,8 +132,8 @@ class AbstractDB(ABC):
         return success
     
 
-    @abstractmethod
     @classmethod
+    @abstractmethod
     def fetch_dbs(cls) -> list[str]:
         pass
 

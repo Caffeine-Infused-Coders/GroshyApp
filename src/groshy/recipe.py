@@ -30,6 +30,7 @@ class Recipe(BaseModel):
 
     @classmethod
     def get_recipe(cls, url:str) -> Recipe | None:
+        """ Retrieves information about the recipe using a provided URL """
         success = False
         _rec = None
         try:
@@ -54,7 +55,8 @@ class Recipe(BaseModel):
                 return rec
 
     @staticmethod
-    def gather_ingredients(json_recipe: dict) -> list:
+    def gather_ingredients(json_recipe: dict) -> list[Ingredient]:
+        """ Converts text only ingredients list into list of Ingredient objects. """
         parsed = []
         nltk.download("averaged_perceptron_tagger", quiet=True)
         ing_str = json_recipe["ingredients"]

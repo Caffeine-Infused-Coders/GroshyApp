@@ -11,6 +11,7 @@ recipe-scrapers = "^14.50.2"
 ingredient-parser-nlp = "^0.1.0b5"
 ruff = "^0.0.292"
 pydantic = "^2.5.1"
+pyqt6 = "^6.6.1"
 
 [tool.poetry.group.test]
 optional = true

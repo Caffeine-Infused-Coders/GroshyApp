@@ -37,17 +37,24 @@ def main():
             if resp.lower in ["no", "n"]:
                 print("Sorry about that, restarting program :(")
                 continue
+            
+            print("Saving recipe to cookbook...")
+            
+            if ckbks := CookBook.fetch_dbs():
+                print("Available CookBooks: ")
+                for ckbk in ckbks:
+                    print(ckbk)
+                ckbk = input("Which cookbook would you like to write your recipe into?")
+                if ckbk in ckbks:
+                    activeCookbook = CookBook(False, ckbk)
+                else:
+                    activeCookbook = CookBook(True, ckbk)
+                print(f"Saving Recipe in {activeCookbook}")
             else:
-                if ckbks := CookBook.fetch_dbs():
-                    print("Available CookBooks: ")
-                    for ckbk in ckbks:
-                        print(ckbk)
-                    ckbk = input("Which cookbook would you like to write your recipe into?")
-                    if ckbk in ckbks:
-                        activeCookbook = CookBook(False, ckbk)
-                    else:
-                        activeCookbook = CookBook(True, ckbk)
-                    print(f"Saving Recipe in {activeCookbook}")
+                ckbk = input("Please name your first cookbook!:\n\t")
+                activeCookbook = CookBook(True, ckbk)
+                
+            activeCookbook.db_add(rec.model_dump())
                 
 
             print("Here are the ingredients")
@@ -55,12 +62,8 @@ def main():
                 print(ing)
 
             print("Adding ingredients to pantry")
-            pantry_path = Path('/home/dev/ShoppingListApp/.dbs/pantry')
-            pantries = []
-            for file in pantry_path.iterdir():
-                pantries.append(file)
             ings = rec.build_ingredients()
-            pan = Pantry("bb1pantry", ings)
+            pan = Pantry("bb1pantry", True, ings)
 
             print("Ta Da!")
             print(pan.name)

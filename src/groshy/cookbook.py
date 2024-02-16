@@ -6,13 +6,19 @@ from groshy.abstract_db import AbstractDB
 
 
 class CookBook(AbstractDB):
-    def __init__(self, newckbk: bool, db_name: str = "Cookbook1"):
+    def __init__(self, db_name: str,  newckbk: bool,):
+        self.new = newckbk
         super().__init__(db_name, "cookbook", newckbk)
+
 
 
     def save_recipe(self, recipe: Recipe):
 
         json_recipe = recipe.model_dump_json()
+
+        if self.new:
+            if self.db_write(json_recipe):
+                
 
         if self.db_add(json_recipe):
             print(f"Recipe saved to {self.name}")

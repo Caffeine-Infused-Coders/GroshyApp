@@ -5,8 +5,8 @@ from groshy.ingredient import Ingredient
 
 
 class Pantry(AbstractDB):
-    def __init__(self, name: str, contents: list[Ingredient]):
-        super().__init__(name, "pantry")
+    def __init__(self, name: str, contents: list[Ingredient], pantrynew: bool):
+        super().__init__(name, "pantry", pantrynew)
         self.contents = contents
 
         if self.contents:
