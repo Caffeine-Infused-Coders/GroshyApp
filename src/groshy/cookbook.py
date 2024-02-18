@@ -1,3 +1,4 @@
+from os import name
 from pathlib import Path
 import json
 
@@ -6,22 +7,25 @@ from groshy.abstract_db import AbstractDB
 
 
 class CookBook(AbstractDB):
-    def __init__(self, db_name: str,  newckbk: bool,):
-        self.new = newckbk
+    def __init__(self, db_name: str,  newckbk: bool):
         super().__init__(db_name, "cookbook", newckbk)
+        self.new = newckbk
+        self.pages = self._data
 
 
 
-    def save_recipe(self, recipe: Recipe):
+    def save_recipe(self, recipe: Recipe) -> bool:
 
-        json_recipe = recipe.model_dump_json()
+        success = False
 
-        if self.new:
-            if self.db_write(json_recipe):
-                
+        json_recipe = {recipe.name: recipe.model_dump(exclude={'name'})}
 
-        if self.db_add(json_recipe):
+        if self.db_add([json_recipe]):
             print(f"Recipe saved to {self.name}")
+            success = True
+
+        
+        return success
 
     @classmethod
     def fetch_dbs(cls) -> list[str]:
@@ -41,9 +45,15 @@ class CookBook(AbstractDB):
 
 if __name__ == "__main__":
 
-    babys_first_cookbook = CookBook(True, "bb1ckbk")
+    babys_first_cookbook = CookBook("bb1ckbk", True)
 
-    print(babys_first_cookbook.name)
-    print(babys_first_cookbook.type)
-    print(babys_first_cookbook.dir)
-    print(babys_first_cookbook.path)
+    print(f"Name: {babys_first_cookbook.name}")
+    print(f"Type: {babys_first_cookbook.type}")
+    print(f"Location: {babys_first_cookbook.dir}")
+    print(f"Full Path: {babys_first_cookbook.path}")
+
+    recipe = Recipe.get_recipe("https://www.thediaryofarealhousewife.com/snickerdoodle-dip/")
+
+    print("Got the data")
+
+    babys_first_cookbook.save_recipe(recipe)

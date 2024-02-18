@@ -27,12 +27,21 @@ class Recipe(BaseModel):
             ingredients_list.append(Ingredient(name=x["name"], last_bought=None))
 
         return ingredients_list
+    
+    @classmethod
+    def dummy_recipe(cls) -> Recipe:
+        return Recipe(name="N/A", 
+                      description="N/A", 
+                      ingredients=[{"N/A": "N/A"}], 
+                      instructions=["N/A"], 
+                      cuisine="N/A", 
+                      category="N/A")
 
     @classmethod
-    def get_recipe(cls, url:str) -> Recipe | None:
+    def get_recipe(cls, url:str) -> Recipe:
         """ Retrieves information about the recipe using a provided URL """
         success = False
-        _rec = None
+        rec = cls.dummy_recipe()
         try:
             _rec = scrape_me(url)
             success = True
@@ -52,7 +61,8 @@ class Recipe(BaseModel):
                 # test_unpacking(**recd)
                 recd = Recipe.extract_recipe_fields(recd)
                 rec = Recipe(**recd)
-                return rec
+            
+            return rec
 
     @staticmethod
     def gather_ingredients(json_recipe: dict) -> list[Ingredient]:

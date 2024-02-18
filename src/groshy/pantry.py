@@ -5,29 +5,26 @@ from groshy.ingredient import Ingredient
 
 
 class Pantry(AbstractDB):
-    def __init__(self, name: str, contents: list[Ingredient], pantrynew: bool):
+    def __init__(self, name: str, pantrynew: bool):
         super().__init__(name, "pantry", pantrynew)
-        self.contents = contents
-
-        if self.contents:
-            self.pantry_write()
+        self.shelves = self._data
 
 
     def pantry_write(self):
-        """ Dumps Ingredient models into list before passing to db_add. """
+        """Dumps Ingredient models into list before passing to db_add."""
 
         dump_list = []
-        for cont in self.contents:
-            dump_list.append(cont.model_dump())
-        
+        for ingredients in self.shelves:
+            dump_list.append(ingredients.model_dump())
+            
         self.db_add(dump_list)
 
 
-    def pantry_update(self, conts: list[Ingredient]):
+    def pantry_update(self, foods: list[Ingredient]):
         """Update Pantry DB with new list of Ingredients."""
 
-        for cont in conts:
-            self.contents.append(cont)
+        for food in foods:
+            self.shelves.update(food)
 
         self.pantry_write()
 

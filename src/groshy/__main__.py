@@ -46,13 +46,13 @@ def main():
                     print(ckbk)
                 ckbk = input("Which cookbook would you like to write your recipe into?")
                 if ckbk in ckbks:
-                    activeCookbook = CookBook(False, ckbk)
+                    activeCookbook = CookBook(ckbk, False)
                 else:
-                    activeCookbook = CookBook(True, ckbk)
+                    activeCookbook = CookBook(ckbk, True)
                 print(f"Saving Recipe in {activeCookbook}")
             else:
                 ckbk = input("Please name your first cookbook!:\n\t")
-                activeCookbook = CookBook(True, ckbk)
+                activeCookbook = CookBook(ckbk, True)
                 
             activeCookbook.db_add(rec.model_dump())
                 
@@ -63,11 +63,11 @@ def main():
 
             print("Adding ingredients to pantry")
             ings = rec.build_ingredients()
-            pan = Pantry("bb1pantry", True, ings)
+            pan = Pantry("bb1pantry", ings, True)
 
             print("Ta Da!")
             print(pan.name)
-            for x in pan.contents:
+            for x in pan.shelves:
                 print(x.model_dump_json())
 
 

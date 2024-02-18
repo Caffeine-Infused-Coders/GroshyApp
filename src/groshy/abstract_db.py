@@ -9,11 +9,11 @@ class AbstractDB(ABC):
     db_root = Path.joinpath(cwd, ".dbs")
     
     def __init__(self, db_name: str, db_type: str, new: bool=False):
-        self.name = db_name  # Define database name from argument
+        self.name = db_name
         self.type = db_type
         self.dir = Path.joinpath(AbstractDB.db_root, self.type)
         self.path = Path.joinpath(self.dir, f"{self.name}.json")
-        self.data = {}
+        self._data = {}
 
         if new:
             if not AbstractDB.db_root.exists():
@@ -31,8 +31,8 @@ class AbstractDB(ABC):
             res = self.db_read()
 
             if not res:
-                print(f"Could not access {self.name}")
-
+                print(f"Could not access {self.name}.\n\nPlease reboot the program")
+                exit()
 
     def build_db(self) -> bool:
 
@@ -51,13 +51,13 @@ class AbstractDB(ABC):
             ans_flg = False
             attempts = 3
             while not ans_flg and attempts > 0:
-                resp = input("Would you like to choose a different name? (y/n)")
+                resp = input("Would you like to choose a different name? (y/n): ")
 
                 match resp:
                     case "yes" | "y":
                         ans_flg = True
                         self.name = input("Enter new name: ")
-                        self.path = Path.joinpath(self.dir, self.name)
+                        self.path = Path.joinpath(self.dir, f"{self.name}.json")
                         success = self.build_db()
                     case "no" | "n":
                         ans_flg = True
@@ -70,41 +70,21 @@ class AbstractDB(ABC):
         return success
 
 
-    def db_write(self, msg):
+    def db_add(self, msg: list[dict]):
 
         success = False
+
+        for mess in msg:
+            self._data.update(mess)  # Process the msg list by appending to self.data
+
         try:
             with open(self.path, "w") as db:
-                json.dump(msg, db, indent=4)
+                json.dump(self._data, db)
                 db.write("\n")
             success = True
         except FileNotFoundError:
-            print(f"No database file found. Double check this location: {self.path}.json")
+            print(f"No database file found. Double check this location: {self.path}")
             pass
-
-        return success
-
-
-    def db_add(self, msg):
-
-        success = False
-
-        if self.data is None:
-            try:
-                with open(self.path, "ra") as db:
-                    self.data = json.load(db)
-                    self.data.update(msg)
-                    json.dump(self.data, db, indent=4)
-                    db.write("\n")
-                success = True
-            except FileNotFoundError:
-                print(f"No database file found. Double check this location: {self.path}.json")
-                pass
-        
-        else:
-            self.data.update(msg)
-            self.db_write(self.data)
-
 
         return success
 
@@ -113,9 +93,9 @@ class AbstractDB(ABC):
         success = False
         try:
             with open(self.path, "r") as db:
-                self.data = json.load(db)
+                self._data = json.load(db)
         except FileNotFoundError:
-            print(f"No database file found. Double check this location: {self.path}.json")  # TODO: make this a logging statement  # noqa: E501
+            print(f"No database file found. Double check this location: {self.path}")  # TODO: make this a logging statement  # noqa: E501
             pass
 
         return success
