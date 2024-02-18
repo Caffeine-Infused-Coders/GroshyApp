@@ -15,7 +15,7 @@ class Pantry(AbstractDB):
 
         dump_list = []
         for ingredients in self.shelves:
-            dump_list.append(ingredients.model_dump())
+            dump_list.append({ingredients.name: ingredients.model_dump(exclude={'name'})})
             
         self.db_add(dump_list)
 
@@ -42,3 +42,19 @@ class Pantry(AbstractDB):
         return dbs
 
     
+if __name__ == "__main__":
+
+    from groshy.recipe import Recipe
+
+    open_pantry = Pantry("pantree", True)
+
+    print(f"Name: {open_pantry.name}")
+    print(f"Type: {open_pantry.type}")
+    print(f"Location: {open_pantry.dir}")
+    print(f"Full Path: {open_pantry.path}")
+
+    recipe = Recipe.get_recipe("https://www.thediaryofarealhousewife.com/snickerdoodle-dip/")
+
+    print("Got the data")
+
+    open_pantry.save_recipe(recipe)

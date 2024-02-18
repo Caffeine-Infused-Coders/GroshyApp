@@ -75,7 +75,7 @@ class AbstractDB(ABC):
         success = False
 
         for mess in msg:
-            self._data.update(mess)  # Process the msg list by appending to self.data
+            self._data.update(mess)  # Process the msg list by appending to data
 
         try:
             with open(self.path, "w") as db:

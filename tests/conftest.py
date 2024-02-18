@@ -1,10 +1,14 @@
 import tomllib
 import logging
-from pathlib import Path
+from pathlib import Path, PurePath
 
 import pytest
 
-configpath = Path("./tstconfig.toml")
+conftest_path = Path(__file__)
+configpath = Path.joinpath(conftest_path.parent, "tstconfig.toml")
+
+with open(configpath, "rb") as conf:
+    urls = tomllib.load(conf)['Recipe']['urls']
 
 @pytest.fixture
 def read_config():
@@ -18,6 +22,6 @@ def logger(request, read_config):
     func_name = request.function.__name__
  
 
-@pytest.fixture
-def get_urls(read_config):
-    return read_config['Recipe']['urls']
+def pytest_generate_tests(metafunc):
+    if 'url' in metafunc.fixturenames:
+        metafunc.parametrize('url', urls)
