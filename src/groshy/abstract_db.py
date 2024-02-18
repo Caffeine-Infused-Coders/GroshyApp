@@ -37,14 +37,14 @@ class AbstractDB(ABC):
     def build_db(self) -> bool:
 
         msg = {}  # Message to print in new database file
-        result = False  # Default return value for this method
+        success = False  # Default return value for this method
 
         try:
             with open(self.path, "x") as db:  # Create database json file and dump message
                 json.dump(msg, db, indent=4)
                 
             print(f"{self.name} created successfully")
-            result = True  # Signal creation of db
+            success = True  # Signal creation of db
         except FileExistsError:
             print(f"A {self.type} named {self.name} already exists in location {self.dir}...")
 
@@ -58,7 +58,7 @@ class AbstractDB(ABC):
                         ans_flg = True
                         self.name = input("Enter new name: ")
                         self.path = Path.joinpath(self.dir, self.name)
-                        result = self.build_db()
+                        success = self.build_db()
                     case "no" | "n":
                         ans_flg = True
                         print(f"{self.type} creation aborted")
@@ -67,7 +67,7 @@ class AbstractDB(ABC):
                         attempts -= 1
                         continue
 
-        return result
+        return success
 
 
     def db_write(self, msg):
@@ -92,9 +92,9 @@ class AbstractDB(ABC):
         if self.data is None:
             try:
                 with open(self.path, "ra") as db:
-                    olddata = json.load(db)
-                    olddata.update(msg)
-                    json.dump(msg, db, indent=4)
+                    self.data = json.load(db)
+                    self.data.update(msg)
+                    json.dump(self.data, db, indent=4)
                     db.write("\n")
                 success = True
             except FileNotFoundError:
@@ -103,6 +103,7 @@ class AbstractDB(ABC):
         
         else:
             self.data.update(msg)
+            self.db_write(self.data)
 
 
         return success
