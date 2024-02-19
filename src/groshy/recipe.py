@@ -35,7 +35,10 @@ class Recipe(BaseModel):
                       ingredients=[{"N/A": "N/A"}], 
                       instructions=["N/A"], 
                       cuisine="N/A", 
-                      category="N/A")
+                      category="N/A",
+                      yields="N/A",
+                      cooking_time=0,
+                      price=0)
 
     @classmethod
     def get_recipe(cls, url:str) -> Recipe:

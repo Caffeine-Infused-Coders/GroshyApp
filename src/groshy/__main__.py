@@ -63,7 +63,7 @@ def main():
 
             print("Adding ingredients to pantry")
             ings = rec.build_ingredients()
-            pan = Pantry("bb1pantry", ings, True)
+            pan = Pantry("bb1pantry", True)
 
             print("Ta Da!")
             print(pan.name)
