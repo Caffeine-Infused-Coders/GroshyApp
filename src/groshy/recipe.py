@@ -50,40 +50,36 @@ class Recipe(BaseModel):
 
 
     @classmethod
-    def write_recipe(cls):
+    def write_recipe(cls) -> Recipe:
         """ Prompts the user to provide information for the recipe fields before creating 
         a Recipe object"""
 
-        anotherone = True
-
-        name = input("Please enter the title of your recipe: ")
-        description = input("Please provide a short description for your recipe: \n")
-        ingredients = get_list("""Next we will create your list of ingredients. Please enter your \
-                ingredients in a:
-                    {amount} {unit} of {ingredient}
-                    i.e. 1/3 cup of sugar.
-
-                Where it is important to add notes please do so in parentheses i.e 1 Tbsp \
-                Butter (softened))""")
-        instructions = get_list("""The recipe instructions will be saved as a list of steps similar \
-            to how they are portrayed in a cookbook. Please submit them this way by \
-            pressing the enter key when done writing each step.""")
-
         def get_list(msg):
+
+            instructs = False
+            anotherone = True
+            stepnum = 1
+            lst = []
+
             print(f"""{msg}
                 
                 Enter 'done' when all ingredients have been accounted for\n""")
             
-            if 'ingredients' in msg:
-                type = 'ingredients'
+            if 'instructions' in msg:
+                instructs = True
+
+                def inc_msg(num):
+                    num += 1
+                    return num, f"Step {num}: " 
             else:
-                type = 'instructions'
+                msg = "- "
             
-            lst = []
-
-
             while anotherone:
-                t = input("- ")
+
+                if instructs:
+                    stepnum, msg = inc_msg(stepnum)
+
+                t = input(f"{msg}")
                 
                 if t == "done":
                     anotherone = False
@@ -91,46 +87,73 @@ class Recipe(BaseModel):
                 else:
                     lst.append(t)
 
-            anotherone = True
-            
-        print(
-            
-            Enter 'done' when you've added all of the instructions""")
+            return lst
+
+        def print_list(type, lst):
+            print(f"{type}: ")
         
-        stepnum = 1
-        instructions = []
-        while anotherone:
-            instruction = input(f"Step {stepnum}. ")
+            for idx, t in enumerate(lst):
+                print(f"{idx}. {t}")
 
-            if instruction == "done":
-                anotherone = False
+        recd = {
+            "name": " ",
+            "description": " ",
+            "ingredients": [],
+            "instructions": [],
+            "category": " ",
+            "cuisine": " ",
+            "yields": " ",
+            "cooking_time": 0
+            }
+        
+        recd["name"] = input("Please enter the title of your recipe: ")
 
-            else:
-                instructions.append(instruction)
-                stepnum += 1
+        recd["description"] = input("Please provide a short description for your recipe: \n")
 
-        category = input("What category of food is this recipe?: ")
-        cuisine = input("What type of cuisine is this recipe?: ")
-        yields = int(input("How many servings does this recipe yield?: "))
-        cooking_time = input("How long does the recipe take to make in minutes (total time)?: ")
+        recd["ingredients"] = get_list("""Next we will create your list of ingredients.\
+                Please enter your ingredients in the following format:
+                    {amount} {unit} of {ingredient}
+                    i.e. 1/3 cup of sugar.
+
+                Where it is important to add notes please do so in parentheses i.e 1 Tbsp \
+                Butter (softened))""")
+        
+        recd["instructions"] = get_list("""The recipe instructions will be saved as a list of steps similar \
+            to how they are portrayed in a cookbook. Please submit them this way by \
+            pressing the enter key when done writing each step.""")
+        
+        recd["category"] = input("What category of food is this recipe?: ")
+
+        recd["cuisine"] = input("What type of cuisine is this recipe?: ")
+
+        recd["yields"] = int(input("How many servings does this recipe yield?: "))
+        
+        recd["cooking_time"] = input("How long does the recipe take to make in minutes (total time)?: ")
         
 
         print(f"""Does this information look correct?:
-                title: {name}
-                description: {description}
-                category: {category}
-                cuisine: {cuisine}
-                yields: {yields}
-                cooking time: {cooking_time}
-                ingredients: """)
-                
-        for idx, ingredient in enumerate(ingredients):
-            print(f"{idx}. {ingredient}")
+                title: {recd["name"]}
+                description: {recd["description"]}
+                category: {recd["ingredients"]}
+                cuisine: {recd["category"]}
+                yields: {recd["yields"]}
+                cooking time: {recd["cooking_time"]}""")
+        print_list("ingredients", recd["ingredients"])
+        print_list("instructions", recd["instructions"])
 
-        print("instructions: ")
+        resp = input("Correct? (y/n): ")
+
+        match resp.lower():
+            case "y" | "yes":
+                return Recipe(**recd)
+            case "n" | "no":
+                wrong = input("Which entry is wrong?: ")
+
+                try:
+                    recd[wrong] = input("")
+            
+
         
-        for idx, instruction in enumerate(instructions):
-            print(f"")
     
 
     @classmethod
