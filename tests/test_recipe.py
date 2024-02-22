@@ -5,8 +5,8 @@ from groshy.ingredient import Ingredient
 
 
 def test_recipe_building(url):
-    recipe = Recipe.get_recipe(url)
-    ingredients = recipe.build_ingredients()
+    recipe = Recipe.fetch_recipe(url)
+    ingredients = recipe.prep_ingredients()
 
     assert recipe
     for ingredient in ingredients:
@@ -14,7 +14,7 @@ def test_recipe_building(url):
 
 
 def test_recipe_dummy():
-    recipe = Recipe.dummy_recipe()
+    recipe = Recipe._dummy_recipe()
 
     recipe_dict = recipe.model_dump()
 

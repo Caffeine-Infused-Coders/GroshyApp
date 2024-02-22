@@ -27,7 +27,7 @@ def main():
                 print("Yikes, try again")
                 continue
 
-        if (rec := Recipe.get_recipe(url)) is not None:
+        if (rec := Recipe.fetch_recipe(url)) is not None:
             print(f"Recipe Name: {rec.name}")
             print(f"Recipe Category: {rec.category}")
             print(f"Recipe Cooking Time: {rec.cooking_time}")
@@ -62,7 +62,7 @@ def main():
                 print(ing)
 
             print("Adding ingredients to pantry")
-            ings = rec.build_ingredients()
+            ings = rec.prep_ingredients()
             pan = Pantry("bb1pantry", True)
 
             print("Ta Da!")

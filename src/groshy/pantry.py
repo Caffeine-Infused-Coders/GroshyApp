@@ -53,7 +53,7 @@ if __name__ == "__main__":
     print(f"Location: {open_pantry.dir}")
     print(f"Full Path: {open_pantry.path}")
 
-    recipe = Recipe.get_recipe("https://www.thediaryofarealhousewife.com/snickerdoodle-dip/")
+    recipe = Recipe.fetch_recipe("https://www.thediaryofarealhousewife.com/snickerdoodle-dip/")
 
     print("Got the data")
 

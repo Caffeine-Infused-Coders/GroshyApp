@@ -52,7 +52,7 @@ if __name__ == "__main__":
     print(f"Location: {babys_first_cookbook.dir}")
     print(f"Full Path: {babys_first_cookbook.path}")
 
-    recipe = Recipe.get_recipe("https://www.thediaryofarealhousewife.com/snickerdoodle-dip/")
+    recipe = Recipe.fetch_recipe("https://www.thediaryofarealhousewife.com/snickerdoodle-dip/")
 
     print("Got the data")
 
