@@ -1,5 +1,7 @@
 from __future__ import annotations
 import datetime as dt
+from textwrap import dedent
+from click import Path
 
 import nltk
 import ingredient_parser as ip
@@ -47,12 +49,30 @@ class Recipe(BaseModel):
             ingredients_list.append(Ingredient(name=x["name"], last_bought=dt.datetime.now()))
 
         return ingredients_list
+    
+    @staticmethod
+    def _ask_field(field: str, update: bool, pmsg: str = "") -> str:
+        resp = 'None'
 
+        if pmsg:
+            msg = pmsg
+        elif update and not pmsg:
+            msg = f"Please provide a new {field} for the recipe: "
+        else:
+            msg = f"Recipe {field}: "
 
+        resp = input(msg)
+
+        return resp
+
+    "TODO: Allow method to accept a file path. Recipe should be built by reading said file"
     @classmethod
-    def write_recipe(cls) -> Recipe:
-        """ Prompts the user to provide information for the recipe fields before creating 
-        a Recipe object"""
+    def write_recipe(cls, fp: str = "None") -> Recipe:
+        """ Prompts the user to provide information for the recipe fields before 
+        creating a Recipe object
+        
+            Args:
+                fp (str): Path to text file containing recipe. Defaults to 'None'"""
 
         def get_list(msg):
 
@@ -106,31 +126,31 @@ class Recipe(BaseModel):
             "cooking_time": 0
             }
         
-        recd["name"] = input("Please enter the title of your recipe: ")
+        recd["name"] = cls._ask_field("name", False, "What's the name of your recipe?")
+        recd["description"] = cls._ask_field("description", False, "Please provide a \
+                                             short description for your recipe: \n")
+        recd["ingredients"] = get_list(dedent("""Next we will create your \
+                    list of ingredients. Please enter your ingredients in the \
+                    following format:            
+                    \n\t{amount} {unit} of {ingredient}
+                    \n\ti.e. 1/3 cup of sugar.\n
 
-        recd["description"] = input("Please provide a short description for your recipe: \n")
-
-        recd["ingredients"] = get_list("""Next we will create your list of ingredients.\
-                Please enter your ingredients in the following format:
-                    {amount} {unit} of {ingredient}
-                    i.e. 1/3 cup of sugar.
-
-                Where it is important to add notes please do so in parentheses i.e 1 Tbsp \
-                Butter (softened))""")
+                    Where it is important to add notes please do so in parentheses \
+                    i.e 1 Tbsp Butter (softened))"""))
+        recd["instructions"] = get_list("""The recipe instructions will be \
+                    saved as a list of steps similar to how they are portrayed in a \
+                    cookbook. Please submit them this way by pressing the enter key \
+                    when done writing each step.""")
+        recd["category"] = cls._ask_field("category", False, "What category of food\
+                                           is this recipe?: ")
+        recd["cuisine"] = cls._ask_field("cuisine", False, "What type of cuisine\
+                                          is this recipe?: ")
+        recd["yields"] = int(cls._ask_field("yields", False, "How many servings \
+                                            does this recipe yield?: "))  
+        recd["cooking_time"] = cls._ask_field("cooking_time", False, "How long \
+                                              does the recipe take to make in minutes \
+                                              (total time)?: ")
         
-        recd["instructions"] = get_list("""The recipe instructions will be saved as a list of steps similar \
-            to how they are portrayed in a cookbook. Please submit them this way by \
-            pressing the enter key when done writing each step.""")
-        
-        recd["category"] = input("What category of food is this recipe?: ")
-
-        recd["cuisine"] = input("What type of cuisine is this recipe?: ")
-
-        recd["yields"] = int(input("How many servings does this recipe yield?: "))
-        
-        recd["cooking_time"] = input("How long does the recipe take to make in minutes (total time)?: ")
-        
-
         print(f"""Does this information look correct?:
                 title: {recd["name"]}
                 description: {recd["description"]}
@@ -150,11 +170,16 @@ class Recipe(BaseModel):
                 wrong = input("Which entry is wrong?: ")
 
                 try:
-                    recd[wrong] = input("")
-            
+                    recd[wrong] = cls._ask_field(wrong, True)
+                    recipe = Recipe(**recd)
+                except KeyError as err:
+                    print(f"{err}: Ha nice one... that's not what I was asking \
+                          I'm returning an empty Recipe just fyi")
+                    recipe = cls._dummy_recipe()
 
+                finally:
+                     return recipe
         
-    
 
     @classmethod
     def fetch_recipe(cls, url:str) -> Recipe:

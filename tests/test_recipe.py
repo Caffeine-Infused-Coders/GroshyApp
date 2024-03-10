@@ -26,4 +26,7 @@ def test_recipe_dummy():
             value = value[0]
         assert value == "N/A" or value == 0
 
+def test_manual_recipe():
+    
+
 
