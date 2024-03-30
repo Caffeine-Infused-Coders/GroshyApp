@@ -1,5 +1,6 @@
 from pathlib import Path
 from textwrap import dedent
+from groshy.abstract_db import AbstractDB
 
 from groshy.recipe import Recipe
 from groshy.cookbook import CookBook
@@ -46,20 +47,28 @@ def main():
 
         
         print("Saving recipe to cookbook...")
+
+        def list_dbs(type: AbstractDB):
         
-        if ckbks := CookBook.fetch_dbs():
-            print("Available CookBooks: ")
-            for ckbk in ckbks:
-                print(ckbk)
-            ckbk = input("Which cookbook would you like to write your recipe into?")
-            if ckbk in ckbks:
-                activeCookbook = CookBook(ckbk, False)
+            if dbs := type.fetch_dbs():
+                print("Available CookBooks: ")
+                for db in dbs:
+                    print(db)
+                db = input("Which cookbook would you like to write your recipe into?")
+                if db in dbs and type is CookBook:
+                    active = CookBook(db, False)
+                elif db in dbs and type is Pantry:
+                    active = Pantry(db, False)
+                elif type is CookBook:
+                    active = CookBook(db, True)
+                elif type is Pantry:
+                    active = Pantry(db, True)
+                print(f"Saving Recipe in {active}")
             else:
-                activeCookbook = CookBook(ckbk, True)
-            print(f"Saving Recipe in {activeCookbook}")
-        else:
-            ckbk = input("Please name your first cookbook!:\n\t")
-            activeCookbook = CookBook(ckbk, True)
+                db = input("Please name your first cookbook!\nName:\n\t")
+                active = CookBook(db, True)
+
+            return active
             
         activeCookbook.db_add([rec.model_dump()])
             
