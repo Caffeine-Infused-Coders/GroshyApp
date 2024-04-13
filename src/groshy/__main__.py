@@ -14,7 +14,12 @@ def main():
         activePantry = None
 
         
-        resp = input(dedent("How would you like to add a new recipe (M)anually or (A)utomatically (or e(X)it): "))
+        resp = input(dedent("""
+                            How would you like to add a new recipe:
+                                (M)anually
+                                (A)utomatically 
+                                (or e(X)it)
+                            Answer: """))
 
         url = None
         
@@ -78,12 +83,13 @@ def main():
             print(ing)
 
         print("Adding ingredients to pantry")
+        activePantry = Pantry("bb1pantry", True)
         ings = rec.prep_ingredients()
-        pan = Pantry("bb1pantry", True)
+        activePantry.pantry_update(ings)
 
         print("Ta Da!")
-        print(pan.name)
-        for x in pan.shelves:
+        print(activePantry.name)
+        for x in activePantry.shelves:
             print(x.model_dump_json())
 
 
