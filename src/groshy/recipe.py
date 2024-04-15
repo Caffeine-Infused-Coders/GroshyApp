@@ -73,6 +73,8 @@ class Recipe(BaseModel):
         
             Args:
                 fp (str): Path to text file containing recipe. Defaults to 'None'"""
+        
+        recipe = cls._dummy_recipe()  # Return value defined here
 
         def get_list(field: str, msg: str):
 
@@ -179,7 +181,7 @@ does the recipe take to make in minutes
 
         match resp.lower():
             case "y" | "yes":
-                return Recipe(**recd)
+                recipe = Recipe(**recd)
             case "n" | "no":
                 wrong = input("Which entry is wrong?: ")
 
@@ -189,10 +191,8 @@ does the recipe take to make in minutes
                 except KeyError as err:
                     print(f"{err}: Ha nice one... that's not what I was asking \
                           I'm returning an empty Recipe just fyi")
-                    recipe = cls._dummy_recipe()
-
-                finally:
-                     return recipe
+                
+        return recipe
         
 
     @classmethod
@@ -256,7 +256,7 @@ does the recipe take to make in minutes
                 ingredient_amount = "some"
                 pass
 
-            ingredient["name"] = parsed_ingredient.name.text
+            ingredient["name"] = parsed_ingredient.name.text # type: ignore
             if ingredient_amount == "some":
                 ingredient["amount"] = ingredient_amount
                 ingredient["unit"] = "N/A"
