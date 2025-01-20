@@ -44,7 +44,7 @@ class CookBook(AbstractDB):
 
 if __name__ == "__main__":
 
-    babys_first_cookbook = CookBook("bb1ckbk", True)
+    babys_first_cookbook = CookBook("bb3ckbk", True)
 
     print(f"Name: {babys_first_cookbook.name}")
     print(f"Type: {babys_first_cookbook.type}")
