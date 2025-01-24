@@ -1,12 +1,9 @@
 from pathlib import Path
 
-import kivy
 from kivy.app import App
 from kivy.lang.builder import Builder
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import ScreenManager
 
-from groshy.gui import main_menu_screen
-from groshy.gui import bookshelf_screen
 from groshy.gui.main_menu_screen import MainMenuScreen
 from groshy.gui.bookshelf_screen import BookShelfScreen
 

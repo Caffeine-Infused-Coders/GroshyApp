@@ -5,8 +5,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/src/Groshy/.dbs" />
+      <excludeFolder url="file://$MODULE_DIR$/.venvs/311-pycharm" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.11 (ShoppingListApp)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.11 (ShoppingListApp) (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

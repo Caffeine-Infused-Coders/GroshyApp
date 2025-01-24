@@ -1,0 +1,201 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.4 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.4">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="1530" dy="896" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="K5kIs4xkTwEWFtqiW4I_-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="K5kIs4xkTwEWFtqiW4I_-0" target="K5kIs4xkTwEWFtqiW4I_-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K5kIs4xkTwEWFtqiW4I_-0" value="App Start" style="ellipse;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="160" y="40" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="K5kIs4xkTwEWFtqiW4I_-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="K5kIs4xkTwEWFtqiW4I_-2" target="K5kIs4xkTwEWFtqiW4I_-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K5kIs4xkTwEWFtqiW4I_-2" value="Read Database Directory" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="160" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="K5kIs4xkTwEWFtqiW4I_-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="K5kIs4xkTwEWFtqiW4I_-3" target="K5kIs4xkTwEWFtqiW4I_-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K5kIs4xkTwEWFtqiW4I_-8" value="1 Exists" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="K5kIs4xkTwEWFtqiW4I_-7" vertex="1" connectable="0">
+          <mxGeometry x="-0.2727" y="1" relative="1" as="geometry">
+            <mxPoint x="13" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="K5kIs4xkTwEWFtqiW4I_-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="K5kIs4xkTwEWFtqiW4I_-3" target="K5kIs4xkTwEWFtqiW4I_-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K5kIs4xkTwEWFtqiW4I_-15" value="0 Exist" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="K5kIs4xkTwEWFtqiW4I_-10" vertex="1" connectable="0">
+          <mxGeometry x="-0.4" y="-1" relative="1" as="geometry">
+            <mxPoint x="-8" y="46" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="K5kIs4xkTwEWFtqiW4I_-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="K5kIs4xkTwEWFtqiW4I_-3" target="K5kIs4xkTwEWFtqiW4I_-12" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K5kIs4xkTwEWFtqiW4I_-14" value="&amp;gt; 1 Exists" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="K5kIs4xkTwEWFtqiW4I_-13" vertex="1" connectable="0">
+          <mxGeometry x="0.58" y="1" relative="1" as="geometry">
+            <mxPoint x="-3" y="-59" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="K5kIs4xkTwEWFtqiW4I_-3" value="Cookbooks Exist?" style="rhombus;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="175" y="260" width="90" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="K5kIs4xkTwEWFtqiW4I_-6" target="K5kIs4xkTwEWFtqiW4I_-16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K5kIs4xkTwEWFtqiW4I_-6" value="Transition to CookBook ToB" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="380" y="275" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="K5kIs4xkTwEWFtqiW4I_-9" target="d1OOqpNXQzDM4MEWRAd8-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K5kIs4xkTwEWFtqiW4I_-9" value="Splash Screen w/Create 1st Cookbook button" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="55" y="420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="K5kIs4xkTwEWFtqiW4I_-12" target="d1OOqpNXQzDM4MEWRAd8-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="K5kIs4xkTwEWFtqiW4I_-12" target="d1OOqpNXQzDM4MEWRAd8-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K5kIs4xkTwEWFtqiW4I_-12" value="Transition to BookShelf Screen" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="251" y="420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="K5kIs4xkTwEWFtqiW4I_-16" target="d1OOqpNXQzDM4MEWRAd8-23" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K5kIs4xkTwEWFtqiW4I_-16" value="User selects Recipe" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="570" y="275" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="d1OOqpNXQzDM4MEWRAd8-3" target="K5kIs4xkTwEWFtqiW4I_-6" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="491" y="380" />
+              <mxPoint x="440" y="380" />
+            </Array>
+            <mxPoint x="440" y="420" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-3" value="User Selects CookBook" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="441" y="420" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="d1OOqpNXQzDM4MEWRAd8-7" target="d1OOqpNXQzDM4MEWRAd8-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-7" value="Transition to CookBook Creation Screen" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="55" y="520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-11" value="User Selects &quot;Write New CookBook&quot;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="255.5" y="510" width="111" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.013;entryY=0.407;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="d1OOqpNXQzDM4MEWRAd8-11" target="d1OOqpNXQzDM4MEWRAd8-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="d1OOqpNXQzDM4MEWRAd8-14" target="d1OOqpNXQzDM4MEWRAd8-16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-14" value="User enters name &amp;amp; description (optional)" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="65" y="630" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="d1OOqpNXQzDM4MEWRAd8-16" target="d1OOqpNXQzDM4MEWRAd8-19" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-16" value="Create New Cookbook, set as current" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="55" y="750" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="d1OOqpNXQzDM4MEWRAd8-19" target="d1OOqpNXQzDM4MEWRAd8-21" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-19" value="Transition to Recipe Entry dialogue" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="220" y="750" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="d1OOqpNXQzDM4MEWRAd8-21" target="d1OOqpNXQzDM4MEWRAd8-26" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-21" value="User selects &quot;Manual Input&quot; or Pastes recipe URL" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="390" y="750" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-23" value="Transition to Recipe Screen" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="700" y="1260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="d1OOqpNXQzDM4MEWRAd8-26" target="d1OOqpNXQzDM4MEWRAd8-28" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-30" value="Manual" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="d1OOqpNXQzDM4MEWRAd8-29" vertex="1" connectable="0">
+          <mxGeometry x="-0.1556" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="d1OOqpNXQzDM4MEWRAd8-26" target="d1OOqpNXQzDM4MEWRAd8-31" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-33" value="Auto" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="d1OOqpNXQzDM4MEWRAd8-32" vertex="1" connectable="0">
+          <mxGeometry x="-0.2906" y="-3" relative="1" as="geometry">
+            <mxPoint x="1" y="-3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-26" value="Recipe Entry Method" style="rhombus;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="400" y="860" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-46" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="d1OOqpNXQzDM4MEWRAd8-28" target="d1OOqpNXQzDM4MEWRAd8-45" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-28" value="Transition to Recipe Entry Dialogue" style="whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="380" y="965" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-39" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="d1OOqpNXQzDM4MEWRAd8-31" target="d1OOqpNXQzDM4MEWRAd8-36" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-31" value="Transition to Loading Screen" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="532" y="870" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="d1OOqpNXQzDM4MEWRAd8-36" target="d1OOqpNXQzDM4MEWRAd8-37" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-36" value="Retrieve Recipe Data" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="537" y="960" width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="u4YSUYM15t3jxvfQYn9M-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="d1OOqpNXQzDM4MEWRAd8-37" target="d1OOqpNXQzDM4MEWRAd8-38" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-37" value="Create new recipe" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="527" y="1060" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="u4YSUYM15t3jxvfQYn9M-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="d1OOqpNXQzDM4MEWRAd8-38" target="u4YSUYM15t3jxvfQYn9M-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-38" value="Save to CookBook" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="527" y="1150" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-47" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="d1OOqpNXQzDM4MEWRAd8-45" target="d1OOqpNXQzDM4MEWRAd8-37" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d1OOqpNXQzDM4MEWRAd8-45" value="User Manually Enters Recipe components" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="390" y="1060" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="u4YSUYM15t3jxvfQYn9M-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="u4YSUYM15t3jxvfQYn9M-2" target="d1OOqpNXQzDM4MEWRAd8-19" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="u4YSUYM15t3jxvfQYn9M-5" value="Add Another" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="u4YSUYM15t3jxvfQYn9M-4" vertex="1" connectable="0">
+          <mxGeometry x="-0.3893" y="-1" relative="1" as="geometry">
+            <mxPoint x="36" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="u4YSUYM15t3jxvfQYn9M-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="u4YSUYM15t3jxvfQYn9M-2" target="d1OOqpNXQzDM4MEWRAd8-23" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0WiLasTi36oMGSHgZbzG-0" value="View" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="u4YSUYM15t3jxvfQYn9M-12">
+          <mxGeometry x="-0.2127" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="u4YSUYM15t3jxvfQYn9M-2" value="Add another&amp;nbsp;&lt;div&gt;or View ?&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;rounded=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="541" y="1240" width="92" height="100" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
