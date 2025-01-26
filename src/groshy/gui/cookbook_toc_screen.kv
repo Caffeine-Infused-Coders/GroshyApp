@@ -1,0 +1,27 @@
+#:kivy 2.3.0
+
+<RecipeLabel>:
+    recipe_name: recipe_label
+
+    Label:
+        text: recipe_label
+
+<CookBookToCScreen>:
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 100
+
+        Label:
+            text: self.name
+            underline: True
+            bold: True
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 20
+            spacing: 10
+
+
+

@@ -1,40 +1,21 @@
 #:kivy 2.3.0
 
-<MainMenuScreen>:
+<SplashScreen>:
+    splash_info: splash_info
+
     BoxLayout:
         orientation: 'vertical'
         spacing: 50
         padding: 20
+        AnchorLayout:
+            Label:
+                text: "Welcome to Groshy!!"
+                anchor_x: root.center
+                anchor_y: root.top
 
-        Button:
-            text: "View CookBook"
-            size_hint: 1, 0.5
-            background_normal: ''
-            background_color: (0.1, 0.6, 0.8, 1)
-            border: [20, 20, 20, 20]
-            on_press: root.manager.current = 'bookshelf_screen'
-
-        Button:
-            text: "Add Recipe Manually"
-            size_hint: 1, 0.5
-            background_normal: ''
-            background_color: (0.1, 0.6, 0.8, 1)
-            border: [20, 20, 20, 20]
-
-        BoxLayout:
-            orientation: 'horizontal'
-            size_hint: 1, 0.5
-            spacing: 10
-
-            Button:
-                text: "Add"
-                size_hint: 0.3, 1
-                width: 100
-                background_normal: ''
-                background_color: (0.1, 0.6, 0.8, 1)
-                border: [20, 20, 20, 20]
-
-            TextInput:
-                hint_text: "Paste Recipe URL Here"
-                multiline: False
-                size_hint: 0.7, 1
+        AnchorLayout:
+            Label:
+                id: splash_info
+                anchor_x: root.center
+                anchor_y: root.center
+                text: "loading existing cookbooks..."
