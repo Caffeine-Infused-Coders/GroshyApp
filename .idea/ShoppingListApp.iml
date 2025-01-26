@@ -6,6 +6,8 @@
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/src/Groshy/.dbs" />
       <excludeFolder url="file://$MODULE_DIR$/.venvs/311-pycharm" />
+      <excludeFolder url="file://$MODULE_DIR$/.venvs" />
+      <excludeFolder url="file://$MODULE_DIR$/src/groshy/.dbs" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.11 (ShoppingListApp) (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 
 class AbstractDB(ABC):
     
-    cwd = Path(__file__)
+    cwd = Path(__file__).parent
     db_root = Path.joinpath(cwd, ".dbs")
     
     def __init__(self, db_name: str, db_type: str, new: bool=False):
@@ -94,6 +94,7 @@ class AbstractDB(ABC):
         try:
             with open(self.path, "r") as db:
                 self._data = json.load(db)
+            success = True
         except FileNotFoundError:
             print(f"No database file found. Double check this location: {self.path}")  # TODO: make this a logging statement  # noqa: E501
             pass

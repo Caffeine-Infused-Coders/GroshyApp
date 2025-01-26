@@ -2,15 +2,13 @@ from pathlib import Path
 
 from kivy.app import App
 from kivy.lang.builder import Builder
-from kivy.uix.screenmanager import ScreenManager
 
 from groshy import gui
-from groshy.cookbook import CookBook
 
 class GroshyApp(App):
     def __init__(self):
         super().__init__()
-        self.screen_manager = ScreenManager()
+        self.screen_manager = (gui.Controller())
 
     def build(self):
 
@@ -20,13 +18,6 @@ class GroshyApp(App):
         # sm.add_widget(BookShelfScreen(name='bookshelf_screen'))
 
         return sm
-
-    def add_cookbook_screen(self, name: str, new: bool) -> bool:
-        """Adds a cookbook screen to the screen manager"""
-
-        CookBook(name, new)
-
-        self.screen_manager.add_widget(gui.CookbookToCScreen(name=f'{name}_ToC'))
         
 
 

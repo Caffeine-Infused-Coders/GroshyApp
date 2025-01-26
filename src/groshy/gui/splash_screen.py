@@ -14,8 +14,9 @@ class SplashScreen(Screen):
             self.splash_info.text = "loading BookShelf..."
 
         elif len(cookbooks) == 1:
-            self.splash_info.text = f"Loading {cookbooks[0]}..."
-            self.parent.add_cookbook_screen()
+            cookbook_name = cookbooks[0].strip('.json')
+            self.splash_info.text = f"Loading {cookbook_name}..."
+            self.parent.add_cookbook_screen(cookbook_name, False)
             # self.parent.current =
 
         else:

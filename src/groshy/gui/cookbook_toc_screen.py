@@ -8,9 +8,9 @@ class RecipeLabel(Label):
     pass
 
 class CookbookToCScreen(Screen):
-    def __init__(self, cookbook_data: CookBook):
-        super().__init__()
+    def __init__(self, cookbook_data: CookBook, **kwargs):
+        super().__init__(**kwargs)
         self.cookbook_data = cookbook_data
 
-    def on_enter(self, *args):
+    # def on_enter(self, *args):
         

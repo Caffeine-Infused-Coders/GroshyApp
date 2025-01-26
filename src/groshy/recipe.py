@@ -130,13 +130,13 @@ class Recipe(BaseModel):
             "yields": " ",
             "cooking_time": 0
             }
-        
+
         recd["name"] = cls._ask_field("name", False, "What's the name of your recipe? ")
-        
+
         recd["description"] = cls._ask_field("description", False, "Please provide a \
 short description for your recipe: \n")
-        
-        recd["ingredients"] = get_list("ingredients", 
+
+        recd["ingredients"] = get_list("ingredients",
                                        dedent("""
 Next we will create your list of ingredients. Please enter your ingredients \
 in the following format:            
@@ -145,7 +145,7 @@ in the following format:
 
 Where it is important to add notes please do so in parentheses \
 i.e 1 Tbsp Butter (softened))"""))
-        
+
         recd["instructions"] = get_list("instructions",
                                         dedent("""
 The recipe instructions will be 
@@ -153,20 +153,20 @@ saved as a list of steps similar to how \
 they are portrayed in a cookbook.
 Please submit them this way \
 by pressing the enter key when done writing each step."""))
-        
+
         recd["category"] = cls._ask_field("category", False, "What category of food \
 is this recipe?: ")
-        
+
         recd["cuisine"] = cls._ask_field("cuisine", False, "What type of cuisine \
 is this recipe?: ")
-        
+
         recd["yields"] = cls._ask_field("yields", False, "How many servings \
-does this recipe yield?: ")  
-        
+does this recipe yield?: ")
+
         recd["cooking_time"] = int(cls._ask_field("cooking_time", False, """How long 
 does the recipe take to make in minutes
 (total time)?: """))
-        
+
         print(f"""Does this information look correct?:
                 title: {recd["name"]}
                 description: {recd["description"]}
@@ -262,7 +262,7 @@ does the recipe take to make in minutes
                 ingredient["unit"] = "N/A"
             else:
                 ingredient["amount"] = ingredient_amount.quantity
-                ingredient["unit"] = ingredient_amount.unit
+                ingredient["unit"] = str(ingredient_amount.unit)
 
             parsed.append(ingredient)
 

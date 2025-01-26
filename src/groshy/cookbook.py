@@ -1,5 +1,4 @@
 from pathlib import Path
-import json
 
 from groshy.recipe import Recipe
 from groshy.abstract_db import AbstractDB
@@ -10,8 +9,6 @@ class CookBook(AbstractDB):
         super().__init__(db_name, "cookbook", newckbk)
         self.new = newckbk
         self.pages = self._data
-
-
 
     def save_recipe(self, recipe: Recipe) -> bool:
 
@@ -25,6 +22,18 @@ class CookBook(AbstractDB):
 
         
         return success
+
+    def build_table_of_contents(self) -> list:
+        """Uses the self.pages attribute to extract the recipe titles saved within the
+        cookbook.
+            :return: List of Recipe Titles
+        """
+
+        recipes = []
+        for recipe in self.pages:
+            recipes.append(recipe.keys())
+
+        return recipes
 
     @classmethod
     def fetch_dbs(cls) -> list[str]:
