@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 
 class AbstractDB(ABC):
     
-    cwd = Path.cwd()
+    cwd = Path(__file__)
     db_root = Path.joinpath(cwd, ".dbs")
     
     def __init__(self, db_name: str, db_type: str, new: bool=False):
