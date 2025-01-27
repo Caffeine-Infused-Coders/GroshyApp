@@ -1,21 +1,27 @@
 #:kivy 2.3.0
 
 <SplashScreen>:
-    splash_info: splash_info
 
     BoxLayout:
         orientation: 'vertical'
-        spacing: 50
-        padding: 20
-        AnchorLayout:
-            Label:
-                text: "Welcome to Groshy!!"
-                anchor_x: root.center
-                anchor_y: root.top
+        spacing: 1
+        padding: [50, 20, 50, 200]
 
         AnchorLayout:
+            anchor_x: 'center'
             Label:
-                id: splash_info
-                anchor_x: root.center
-                anchor_y: root.center
-                text: "loading existing cookbooks..."
+                text: "Welcome to Groshy!!"
+                anchor_y: root.top
+
+        Label:
+            id: splash_info
+            text: ""
+        
+        Button:
+            id: get_started
+            size_hint: 0.3, 0.3
+            pos_hint: {'center_x': 0.5}
+            text: "Create your 1st Cookbook!"
+            opacity: 0
+            disabled: True
+            

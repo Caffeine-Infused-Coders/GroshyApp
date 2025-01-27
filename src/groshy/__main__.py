@@ -8,7 +8,7 @@ from groshy import gui
 class GroshyApp(App):
     def __init__(self):
         super().__init__()
-        self.screen_manager = (gui.Controller())
+        self.screen_manager = gui.Controller()
 
     def build(self):
 
@@ -29,5 +29,6 @@ gui_dir = Path(temp_dir, 'gui')
 Builder.load_file(str(Path(gui_dir, 'splash_screen.kv')))
 Builder.load_file(str(Path(gui_dir, 'bookshelf_screen.kv')))
 Builder.load_file(str(Path(gui_dir, 'cookbook_button.kv')))
+Builder.load_file(str(Path(gui_dir, 'cookbook_toc_screen.kv')))
 
 GroshyApp().run()
