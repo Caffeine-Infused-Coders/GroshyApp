@@ -1,31 +1,34 @@
+
 from kivy.clock import Clock
-from kivy.properties import partial
+from kivy.properties import partial, ListProperty
 from kivy.uix.screenmanager import ScreenManager
 
-from groshy.cookbook import CookBook
-
 from groshy.gui.cookbook_toc_screen import CookbookToCScreen
+from groshy.gui.cookbook_form import CookBookForm
 
 class Controller(ScreenManager):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.cookbooks = ListProperty()  # Tracks all currently available cookbooks, set in splash screen
 
-    def add_cookbook_screen(self, name: str, new: bool) -> bool:
-        """Adds a cookbook screen to the screen manager"""
+    def add_cookbook_screen(self, cookbook: str, new: bool, change: bool):
+        """Adds a cookbook ToC screen to the screen manager.
 
-        cookbook = CookBook(name, new)
-        screen_name = f'{name}_ToC'
-        self.add_widget(CookbookToCScreen(cookbook_data=cookbook, name=screen_name))
-        self.wait_for_trans(screen_name)
+        :return: The name of the newly created screen"""
 
+        self.add_widget(CookbookToCScreen(new, name=cookbook))
 
-    def open_new_cookbook_form(self):
-        
-        self.add_widget(CookBookForm)
+        if change:
+            self.wait_for_trans(cookbook)
 
 
-    def wait_for_trans(self, newscreen):
+    def create_new_cookbook(self):
+        cookbook_creator = CookBookForm(self)
+        cookbook_creator.open()
+
+
+    def wait_for_trans(self, newscreen, dt=2):
         def _change_current(nscreen, dt):
             self.current = nscreen
 
-        Clock.schedule_once(partial(_change_current, newscreen), 3)
+        Clock.schedule_once(partial(_change_current, newscreen), dt)

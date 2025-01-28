@@ -1,4 +1,4 @@
-from kivy import properties
+
 from kivy.uix.screenmanager import Screen
 
 from groshy.cookbook import CookBook
@@ -6,19 +6,25 @@ from groshy.cookbook import CookBook
 
 class SplashScreen(Screen):
     # splash_info = properties.ObjectProperty(None)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
     def on_enter(self):
         self.ids.splash_info.text = "Finding Cookbooks..."
+
         cookbooks = CookBook.fetch_dbs()
+        for i, cookbook in enumerate(cookbooks, 0):
+            cookbooks[i] = cookbook.strip('.json')
+
+        self.parent.cookbooks = cookbooks
 
         if len(cookbooks) > 1:
             self.ids.splash_info.text = "loading BookShelf..."
 
         elif len(cookbooks) == 1:
-            cookbook_name = cookbooks[0].strip('.json')
+            cookbook_name = cookbooks[0]
             self.ids.splash_info.text = f"Loading {cookbook_name}..."
-            self.parent.add_cookbook_screen(cookbook_name, False)
-            # self.parent.current =
+            self.parent.add_cookbook_screen(cookbook_name, new=False, change=True)
 
         else:
             self.ids.splash_info.text = "No CookBooks Found"

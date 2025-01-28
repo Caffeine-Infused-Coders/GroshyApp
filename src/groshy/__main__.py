@@ -30,5 +30,6 @@ Builder.load_file(str(Path(gui_dir, 'splash_screen.kv')))
 Builder.load_file(str(Path(gui_dir, 'bookshelf_screen.kv')))
 Builder.load_file(str(Path(gui_dir, 'cookbook_button.kv')))
 Builder.load_file(str(Path(gui_dir, 'cookbook_toc_screen.kv')))
+Builder.load_file(str(Path(gui_dir, 'cookbook_form.kv')))
 
 GroshyApp().run()
