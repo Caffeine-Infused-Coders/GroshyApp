@@ -1,17 +1,15 @@
 #:kivy 2.3.0
 
 <RecipeLabel>:
-    recipe_name: recipe_label
-
     Label:
-        text: recipe_label
+        text: ''
+#        pos_hint: {'top': root.parent.top}
 
 <CookBookToCScreen>:
-
     BoxLayout:
         orientation: 'vertical'
         padding: 20
-        spacing: 100
+        spacing: 30
 
         Label:
             text: root.cookbook_data.name
@@ -19,9 +17,10 @@
             bold: True
 
         BoxLayout:
+            id: recipe_box
             orientation: 'vertical'
             padding: 20
-            spacing: 10
+            spacing: 15
 
 
 

@@ -2,7 +2,7 @@
 
 <CookBookForm>:
 
-    size_hint: 0.3, 0.3
+    size_hint: 0.4, 0.4
     auto_dismiss: False
     title: "CookBook Creator"
     title_text_bold: True
@@ -19,17 +19,19 @@
 
         BoxLayout:
             orientation: 'horizontal'
-        Button:
-            size_hint: 0.4, 0.3
-            pos_hint: {'center_x': root.width / 4}
-            text: "Cancel"
-            on_press: root.dismiss()
-            
-        Button:
-            id: submit_name
-            size_hint: 0.4, 0.3
-            disabled: False
-            pos_hint: {'center_x': root.width * 3/4}
-            text: "Submit"
-            on_press: root.name_validator()
+            spacing: 10
+
+            Button:
+                size_hint: 0.4, 0.3
+                pos_hint: {'center_x': root.width / 4}
+                text: "Cancel"
+                on_press: root.dismiss()
+
+            Button:
+                id: submit_name
+                size_hint: 0.4, 0.3
+                disabled: False
+                pos_hint: {'center_x': root.width * 3/4}
+                text: "Submit"
+                on_press: root.name_validator()
 

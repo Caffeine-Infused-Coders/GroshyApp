@@ -31,7 +31,7 @@ class CookBook(AbstractDB):
 
         recipes = []
         for recipe in self.pages:
-            recipes.append(recipe.keys())
+            recipes.append(recipe)
 
         return recipes
 

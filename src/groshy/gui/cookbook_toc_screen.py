@@ -14,5 +14,9 @@ class CookbookToCScreen(Screen):
         super().__init__(name=name, **kwargs)
 
 
-    # def on_enter(self, *args):
-        
+    def on_enter(self, *args):
+        recipes = self.cookbook_data.build_table_of_contents()
+
+        for recipe in recipes:
+            new_label = RecipeLabel(text=recipe)
+            self.ids.recipe_box.add_widget(new_label)

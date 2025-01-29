@@ -12,11 +12,11 @@ class SplashScreen(Screen):
     def on_enter(self):
         self.ids.splash_info.text = "Finding Cookbooks..."
 
-        cookbooks = CookBook.fetch_dbs()
+        cookbooks = CookBook.fetch_dbs()  # Get list of currently available cookbooks
         for i, cookbook in enumerate(cookbooks, 0):
-            cookbooks[i] = cookbook.strip('.json')
+            cookbooks[i] = cookbook.strip('.json')  # Remove file extension from cookbook names
 
-        self.parent.cookbooks = cookbooks
+        self.parent.cookbooks = cookbooks  # Save names to screenmanager
 
         if len(cookbooks) > 1:
             self.ids.splash_info.text = "loading BookShelf..."
