@@ -1,4 +1,5 @@
 
+import re
 from kivy.uix.screenmanager import Screen
 
 from groshy.cookbook import CookBook
@@ -14,7 +15,7 @@ class SplashScreen(Screen):
 
         cookbooks = CookBook.fetch_dbs()  # Get list of currently available cookbooks
         for i, cookbook in enumerate(cookbooks, 0):
-            cookbooks[i] = cookbook.strip('.json')  # Remove file extension from cookbook names
+            cookbooks[i] = cookbook.removesuffix('.json')  # Remove file extension from cookbook names
 
         self.parent.cookbooks = cookbooks  # Save names to screenmanager
 

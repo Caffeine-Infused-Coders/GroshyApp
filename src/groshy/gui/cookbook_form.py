@@ -14,8 +14,8 @@ class CookBookForm(Popup):
     def name_validator(self):
         new_cookbook_name = self.ids.name_box.text
         current_cookbooks = self.sm.cookbooks
-
-        new_cookbook_name = re.sub(' ', '_', new_cookbook_name)
+        # space = re.compile('[a-z0-9]+( )[a-z0-9]+')
+        # new_cookbook_name = re.sub(space, '_', new_cookbook_name)
 
         if new_cookbook_name not in current_cookbooks and new_cookbook_name != '':
             current_cookbooks.append(new_cookbook_name)

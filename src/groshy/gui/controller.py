@@ -5,6 +5,7 @@ from kivy.uix.screenmanager import ScreenManager
 
 from groshy.gui.cookbook_toc_screen import CookbookToCScreen
 from groshy.gui.cookbook_form import CookBookForm
+from groshy.gui.bookshelf_screen import BookShelfScreen
 
 class Controller(ScreenManager):
     def __init__(self, **kwargs):
@@ -25,6 +26,13 @@ class Controller(ScreenManager):
     def create_new_cookbook(self):
         cookbook_creator = CookBookForm(self)
         cookbook_creator.open()
+
+    
+    def add_bookshelf_screen(self):
+        bookshelf = BookShelfScreen(name='bookshelf')
+
+        self.add_widget(bookshelf)
+        self.wait_for_trans('bookshelf')
 
 
     def wait_for_trans(self, newscreen, dt=2):

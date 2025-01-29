@@ -4,12 +4,14 @@
     "files.autoSave": "afterDelay",
     "editor.wordWrap": "on",
     "workbench.commandPalette.experimental.suggestCommands": true,
-    "workbench.colorTheme": "SynthWave '84",
     "python.createEnvironment.contentButton": "show",
     "python.testing.pytestEnabled": true,
     "python.defaultInterpreterPath": "python",
     "python.terminal.activateEnvInCurrentTerminal": true,
     "projectManager.git.baseFolders": [
         "~/dev/ShoppingListApp/"
-    ]
+    ],
+    "workbench.preferredDarkColorTheme": "Bearded Theme feat. Gold D Raynh",
+    "workbench.colorTheme": "Bearded Theme HC Minuit",
+    "workbench.iconTheme": "bearded-icons"
 }

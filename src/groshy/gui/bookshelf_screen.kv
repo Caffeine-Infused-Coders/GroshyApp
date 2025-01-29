@@ -20,12 +20,3 @@
             cols: 3
             spacing: 10, 10
             padding: [10, 10, 10, 10]
-
-        Button:
-            text: "Back to Main Menu"
-            size_hint: 0.5, None
-            center_x: root.center_x
-            height: 50
-            border: (20, 20, 20, 20)
-            on_press: root.manager.current = 'main_menu'
-            on_leave: cookbooks.clear_widgets()

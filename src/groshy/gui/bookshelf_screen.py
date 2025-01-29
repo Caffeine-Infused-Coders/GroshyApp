@@ -13,7 +13,6 @@ from groshy.gui.cookbook_button import CookBookButton
 
 class BookShelfScreen(Screen):
 
-    @mainthread
     def on_enter(self):
         cb_list = CookBook.fetch_dbs()
 
