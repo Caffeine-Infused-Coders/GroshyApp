@@ -1,8 +1,5 @@
 
-import re
-
 from kivy.uix.popup import Popup
-
 
 
 class CookBookForm(Popup):

@@ -1,11 +1,16 @@
 
+from kivy.app import App
 from kivy.uix.screenmanager import Screen
 from kivy.uix.label import Label
 
 from groshy.cookbook import CookBook
 
 class RecipeLabel(Label):
-    pass
+    def on_touch_up(self, touch):
+        if self.collide_point(*touch.pos):
+            App.get_running_app().screen_manager.add_recipe_screen()
+            return True
+        
 
 class CookbookToCScreen(Screen):
     def __init__(self, new: bool, name, **kwargs):

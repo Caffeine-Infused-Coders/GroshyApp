@@ -1,26 +1,31 @@
 #:kivy 2.3.0
 
 <RecipeLabel>:
-    Label:
-        text: ''
-#        pos_hint: {'top': root.parent.top}
+    text: ''
+    pos_hint: {'top': 1}
 
 <CookBookToCScreen>:
-    BoxLayout:
-        orientation: 'vertical'
-        padding: 20
-        spacing: 30
-
-        Label:
-            text: root.cookbook_data.name
-            underline: True
-            bold: True
+    id: toc_screen
+    RelativeLayout:
+        Button:
+            pos_hint: {'top': 1, 'right': 1}
+            text: 'Add Recipe'
+            on_press: app.screen_manager.create_new_recipe()
 
         BoxLayout:
-            id: recipe_box
             orientation: 'vertical'
-            padding: 20
-            spacing: 15
+
+            Label:
+                text: toc_screen.cookbook_data.name
+                underline: True
+                bold: True
+
+            BoxLayout:
+                id: recipe_box
+                orientation: 'vertical'
+                padding: 10
+                spacing: 15
+
 
 
 
