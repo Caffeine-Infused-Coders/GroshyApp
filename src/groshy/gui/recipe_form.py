@@ -1,10 +1,8 @@
-from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.popup import Popup
 
 from groshy.recipe import Recipe
+from groshy.gui.recipe_form_helpers import MultiEntryBox, TextAndLabel, MultiEntryBoxGrid
 
-class TextAndLabel(BoxLayout):
-    pass
 
 class RecipeForm(Popup):
     def __init__(self, sm, **kwargs):
@@ -14,28 +12,20 @@ class RecipeForm(Popup):
 
     def on_open(self):
 
+        # self.ids.urlbox.ids.data_name.text = 'Recipe Url'
+        # self.ids.urlbox.ids.data_name.hint_text = 'Paste Url here to save online recipe'
+        self.ids.urlbox.hint_text = 'Paste Url here to save online recipe...'
         for field in Recipe.model_fields.keys():
             tal = TextAndLabel()
-            tal.ids.data_name.text = field.upper()
+            tal.ids.data_name.text = f"{field.upper().replace('_', ' ')}:"
 
-            match field:
-                case 'description':
-                    tal.ids.data_name.text =
-                case 'ingredients':
-
-                case 'instructions':
-
-                case 'cuisine':
-
-                case 'category':
-
-                case 'yields':
-
-                case 'cooking_time':
-
-                case 'price':
-
-                case _:
+            if field == 'description':
+                tal.ids.data_entry.multiline = True
+                tal.data_entry.height = 500
+            elif field in ('ingredients', 'instructions'):
+                tal = MultiEntryBoxGrid()
+                tal.ids.data_name.text = f"{field.upper().replace('_', ' ')}:"
+                tal.add_widget(MultiEntryBox(field, self.ids.scrollbox))
 
             self.ids.scrollbox.add_widget(tal)
 

@@ -1,20 +1,8 @@
 #:kivy 2.3.0
 
-<TextAndLabel>:
-    size_hint: .9, .2
-    orientation: 'horizontal'
-    spacing: 5
-
-    Label:
-        id: data_name
-        size_hint: 0.2, 0.2
-        font_size: '14sp'
-        text: ''
-    TextInput:
-        id: data_entry
-        size_hint: 0.8, 0.2
-        font_size: '14sp'
-
+#:import TextAndLabel groshy.gui.recipe_form_helpers
+#:import IngredientEntry groshy.gui.recipe_form_helpers
+#:import IngredientBox groshy.gui.recipe_form_helpers
 
 
 <RecipeForm>:
@@ -22,6 +10,7 @@
     auto_dismiss: False
     title: "Recipe Writer"
     title_text_bold: True
+    title_align: 'center'
     BoxLayout:
         orientation: 'vertical'
         RelativeLayout:
@@ -39,27 +28,25 @@
                 text: "Submit"
                 on_press: root.sm.add_recipe_screen()
 
-            TextAndLabel:
+            TextInput:
                 id: urlbox
                 pos_hint: {'center_x': 0.5, 'bottom': 1}
-                self.data_name.text = "Recipe Url"
-                self.data_name.hint_text = "Paste Url here to save online recipe..."
-
-
-
+                size_hint: 0.5, 0.1
+                text_halign: 'center'
 
             ScrollView:
                 do_scroll_x: False
                 do_scroll_y: True
                 size_hint: 1, 0.85
-                pos_hint: {'top': 1}
-                scroll_distance: 50
+                pos_hint: {'top': 0.97}
+                scroll_distance: (scrollbox.height - 300)/15
 
                 BoxLayout:
                     id: scrollbox
                     size_hint_y: None
-                    height: dp(1000)
-                    spacing: 20
+                    height: dp(900)
+                    spacing: dp(5)
+                    padding: 3
                     orientation: 'vertical'
 
 
