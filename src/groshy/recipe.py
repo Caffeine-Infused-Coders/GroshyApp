@@ -2,8 +2,9 @@ from __future__ import annotations
 import datetime as dt
 
 import nltk
+import requests
 import ingredient_parser as ip
-from recipe_scrapers import scrape_me
+from recipe_scrapers import scrape_html
 from recipe_scrapers import _exceptions as exc
 from pydantic import BaseModel
 
@@ -55,12 +56,13 @@ class Recipe(BaseModel):
         success = False
         rec = cls.make_empty_recipe()
         try:
-            _rec = scrape_me(url)
+            html = requests.get(url)
+            _rec = scrape_html(html=html.text, org_url=url)
             success = True
         except exc.WebsiteNotImplementedError:
             try:
                 print("In WILDMODE")
-                _rec = scrape_me(url, wild_mode=True)
+                _rec = scrape_html(html=html.text, org_url=url, wild_mode=True)
                 success = True
             except exc.NoSchemaFoundInWildMode as e:
                 print(e)
