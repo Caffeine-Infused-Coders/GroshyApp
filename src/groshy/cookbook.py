@@ -43,12 +43,10 @@ class CookBook(AbstractDB):
 
         if Path.is_dir(path := Path.joinpath(AbstractDB.db_root, "cookbook")):
             for db in path.iterdir():
-                dbs.append(db.name)
+                dbs.append(db.name.strip('.json'))
 
         return dbs
 
-
-    
 
 
 if __name__ == "__main__":

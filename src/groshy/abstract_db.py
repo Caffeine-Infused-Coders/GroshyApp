@@ -9,7 +9,7 @@ class AbstractDB(ABC):
     db_root = Path.joinpath(cwd, ".dbs")
     
     def __init__(self, db_name: str, db_type: str, new: bool=False):
-        self.name = db_name
+        self.name = db_name.replace(' ', '_')
         self.type = db_type
         self.dir = Path.joinpath(AbstractDB.db_root, self.type)
         self.path = Path.joinpath(self.dir, f"{self.name}.json")
@@ -23,15 +23,16 @@ class AbstractDB(ABC):
                 Path.mkdir(self.dir)
 
             if self.build_db():  # Build new database
-                print(f"{self.name} ready for use")
+                print(f"{db_name} ready for use (as {self.name})")
             else:
-                print(f"{self.name} could not be built")
+                print(f"{db_name} could not be built (as {self.name})")
                 self.db_remove()               
         else:
             res = self.db_read()
 
             if not res:
-                print(f"Could not access {self.name}.\n\nPlease reboot the program")
+                print(f"Could not access {self.get_display_name()} (as {self.name})."
+                      "\n\nPlease reboot the program")
                 exit()
 
     def build_db(self) -> bool:
@@ -46,7 +47,7 @@ class AbstractDB(ABC):
             print(f"{self.name} created successfully")
             success = True  # Signal creation of db
         except FileExistsError:
-            print(f"A {self.type} named {self.name} already exists in location {self.dir}...")
+            print(f"A {self.type} named {self.name} already exists in location {self.dir}...")  # noqa: E501
 
             ans_flg = False
             attempts = 3
@@ -77,14 +78,14 @@ class AbstractDB(ABC):
         for mess in msg:
             self._data.update(mess)  # Process the msg list by appending to data
 
-        try:
-            with open(self.path, "w") as db:
-                json.dump(self._data, db)
-                db.write("\n")
-            success = True
-        except FileNotFoundError:
-            print(f"No database file found. Double check this location: {self.path}")
-            pass
+            try:
+                with open(self.path, "w") as db:
+                    json.dump(self._data, db, indent=4, default=str)
+                    db.write("\n")
+                    success = True
+            except FileNotFoundError:
+                print(f"No database file found. Double check this location: {self.path}")
+
 
         return success
 
@@ -112,6 +113,17 @@ class AbstractDB(ABC):
             print(f"{self.name} removed...")
 
         return success
+
+
+    def get_display_name(self, db=None):
+        """Returns the db name with the underscores replaced by spaces"""
+
+        if db:
+           name = db
+        else:
+            name = self.name
+
+        return name.replace('_', ' ')
     
 
     @classmethod

@@ -6,6 +6,8 @@ from groshy.ingredient import Ingredient
 
 class Pantry(AbstractDB):
     def __init__(self, name: str, pantrynew: bool):
+        """DB responsible for tracking Ingredients needed and currently 'owned'"""
+
         super().__init__(name, "pantry", pantrynew)
         self.shelves = self._data
 
@@ -20,13 +22,13 @@ class Pantry(AbstractDB):
         self.db_add(dump_list)
 
 
-    def pantry_update(self, foods: list[Ingredient]):
+    def pantry_update(self, foods: list[Ingredient], write: bool):
         """Update Pantry DB with new list of Ingredients."""
 
-        for food in foods:
-            self.shelves.update(food)
+        self.shelves = foods
 
-        self.pantry_write()
+        if write:
+            self.pantry_write()
 
 
 
