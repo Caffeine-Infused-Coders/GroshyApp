@@ -57,6 +57,9 @@ class Recipe(BaseModel):
         rec = cls.make_empty_recipe()
         try:
             html = requests.get(url)
+            if html.status_code == 403:
+                print("Website has forbidden scraping, please manually enter recipe")
+                raise Exception
             _rec = scrape_html(html=html.text, org_url=url)
             success = True
         except exc.WebsiteNotImplementedError:

@@ -10,10 +10,10 @@ class AbstractDB(ABC):
     
     def __init__(self, db_name: str, db_type: str, new: bool=False):
         self.name = db_name.replace(' ', '_')
-        self.type = db_type
-        self.dir = Path.joinpath(AbstractDB.db_root, self.type)
+        self.db_type = db_type
+        self.dir = Path.joinpath(AbstractDB.db_root, self.db_type)
         self.path = Path.joinpath(self.dir, f"{self.name}.json")
-        self._data = {}
+        self._data = []  # Representation of data in the database
 
         if new:
             if not AbstractDB.db_root.exists():
@@ -31,13 +31,13 @@ class AbstractDB(ABC):
             res = self.db_read()
 
             if not res:
-                print(f"Could not access {self.get_display_name()} (as {self.name})."
+                print(f"Could not access {AbstractDB.get_display_name(self.name)} (as {self.name})."
                       "\n\nPlease reboot the program")
                 exit()
 
     def build_db(self) -> bool:
 
-        msg = {}  # Message to print in new database file
+        msg = []  # Message to print in new database file
         success = False  # Default return value for this method
 
         try:
@@ -46,8 +46,9 @@ class AbstractDB(ABC):
                 
             print(f"{self.name} created successfully")
             success = True  # Signal creation of db
+
         except FileExistsError:
-            print(f"A {self.type} named {self.name} already exists in location {self.dir}...")  # noqa: E501
+            print(f"A {self.db_type} named {self.name} already exists in location {self.dir}...")  # noqa: E501
 
             ans_flg = False
             attempts = 3
@@ -58,11 +59,11 @@ class AbstractDB(ABC):
                     case "yes" | "y":
                         ans_flg = True
                         self.name = input("Enter new name: ")
-                        self.path = Path.joinpath(self.dir, f"{self.name}.json")
+                        self.path = Path.joinpath(self.dir, f"{self.name.replace(' ', '_')}.json")
                         success = self.build_db()
                     case "no" | "n":
                         ans_flg = True
-                        print(f"{self.type} creation aborted")
+                        print(f"{self.db_type} creation aborted")
                     case _:
                         print("Unexpected input, please try again.")
                         attempts -= 1
@@ -70,25 +71,21 @@ class AbstractDB(ABC):
 
         return success
 
-
     def db_add(self, msg: list[dict]):
 
         success = False
 
-        for mess in msg:
-            self._data.update(mess)  # Process the msg list by appending to data
+        self._data += msg  # Update runtime representation of db data
 
-            try:
-                with open(self.path, "w") as db:
-                    json.dump(self._data, db, indent=4, default=str)
-                    db.write("\n")
-                    success = True
-            except FileNotFoundError:
-                print(f"No database file found. Double check this location: {self.path}")
-
+        try:
+            with open(self.path, "w") as db:  # Open with 'w' permissions as all the data is re-dumped to db
+                json.dump(self._data, db, indent=4, default=str)
+                db.write("\n")  # Add new line to end of db file
+                success = True
+        except FileNotFoundError:
+            print(f"No database file found. Double check this location: {self.path}")
 
         return success
-
 
     def db_read(self) -> bool:
         success = False
@@ -102,7 +99,6 @@ class AbstractDB(ABC):
 
         return success
 
-
     def db_remove(self):
         """ Delete db from db repository. """
         success = False
@@ -114,17 +110,15 @@ class AbstractDB(ABC):
 
         return success
 
-
-    def get_display_name(self, db=None):
+    @staticmethod
+    def get_display_name(db: str):
         """Returns the db name with the underscores replaced by spaces"""
+        return db.replace('_', ' ')
 
-        if db:
-           name = db
-        else:
-            name = self.name
-
-        return name.replace('_', ' ')
-    
+    @staticmethod
+    def get_db_name(display_name: str):
+        """Returns the db name as saved in the system"""
+        return display_name.replace(' ', '_')
 
     @classmethod
     @abstractmethod

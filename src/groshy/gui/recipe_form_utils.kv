@@ -1,30 +1,6 @@
 #:kivy 2.3.0
 
-<TextAndLabel>:
-    data_name: data_name
-    data_entry: data_entry
-
-    size_hint: .9, .4
-    rows: 2
-
-    Label:
-        id: data_name
-        size_hint: 0.2, None
-        text_size: self.size
-        font_size: '14sp'
-        height: self.font_size
-        halign: 'left'
-        valign: 'bottom'
-        text: ''
-
-    RelativeLayout:
-        TextInput:
-            id: data_entry
-            size_hint: 0.8, None
-            height: self.minimum_height
-            pos_hint: {'center_y': 0.5, 'center_x': 0.5}
-            font_size: '14sp'
-
+#:import AddEntry groshy.gui.utils
 
 <StepsEntry>:
     size_hint: 0.8, None
@@ -69,14 +45,6 @@
 
     AddEntry:
         on_press: self.parent.add_another_entry()
-
-
-
-<AddEntry@Button>:
-    pos_hint: {'top': 0.8, 'right': 0.9}
-    size_hint: None, None
-    size: dp(25), dp(25)
-    text: '+'
 
 
 <MultiEntryBoxGrid>:

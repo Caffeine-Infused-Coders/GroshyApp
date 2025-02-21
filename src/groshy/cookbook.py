@@ -20,7 +20,6 @@ class CookBook(AbstractDB):
             print(f"Recipe saved to {self.name}")
             success = True
 
-        
         return success
 
     def build_table_of_contents(self) -> list:
@@ -31,7 +30,7 @@ class CookBook(AbstractDB):
 
         recipes = []
         for recipe in self.pages:
-            recipes.append(recipe)
+            recipes.append(list(recipe)[0])
 
         return recipes
 
@@ -43,7 +42,7 @@ class CookBook(AbstractDB):
 
         if Path.is_dir(path := Path.joinpath(AbstractDB.db_root, "cookbook")):
             for db in path.iterdir():
-                dbs.append(db.name.strip('.json'))
+                dbs.append(db.name.replace('.json', ''))
 
         return dbs
 
@@ -54,7 +53,7 @@ if __name__ == "__main__":
     babys_first_cookbook = CookBook("bb3ckbk", True)
 
     print(f"Name: {babys_first_cookbook.name}")
-    print(f"Type: {babys_first_cookbook.type}")
+    print(f"Type: {babys_first_cookbook.db_type}")
     print(f"Location: {babys_first_cookbook.dir}")
     print(f"Full Path: {babys_first_cookbook.path}")
 

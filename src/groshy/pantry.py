@@ -33,7 +33,7 @@ class Pantry(AbstractDB):
 
 
     def fetch_dbs(self) -> list[str]:
-        """Reads pantry db file namesj in pantry directory, returns them as a list of strings."""
+        """Reads pantry db file names in pantry directory, returns them as a list of strings."""
 
         dbs = []
 
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     open_pantry = Pantry("pantree", True)
 
     print(f"Name: {open_pantry.name}")
-    print(f"Type: {open_pantry.type}")
+    print(f"Type: {open_pantry.db_type}")
     print(f"Location: {open_pantry.dir}")
     print(f"Full Path: {open_pantry.path}")
 

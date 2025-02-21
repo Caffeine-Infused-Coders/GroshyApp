@@ -3,10 +3,13 @@ from kivy.clock import Clock
 from kivy.properties import partial, ListProperty
 from kivy.uix.screenmanager import ScreenManager
 
-from groshy.gui.cookbook_toc_screen import CookbookToCScreen
-from groshy.gui.cookbook_form import CookBookForm
 from groshy.gui.recipe_form import RecipeForm
+from groshy.gui.cookbook_form import CookBookForm
+
+from groshy.gui.cookbook_toc_screen import CookbookToCScreen
 from groshy.gui.bookshelf_screen import BookShelfScreen
+from groshy.gui.recipe_screen import RecipeScreen
+
 
 class Controller(ScreenManager):
     def __init__(self, **kwargs):
@@ -14,15 +17,30 @@ class Controller(ScreenManager):
         self.cookbooks = ListProperty()  # Tracks all currently available cookbooks, set in splash screen
 
 
-    def add_cookbook_screen(self, cookbook: str, new: bool, change: bool):
-        """Adds a cookbook ToC screen to the screen manager.
+    def add_screen(self, screen_type: str, name: str, change: bool, new: bool, dt: int=2):
+        """Adds a new screen of type `screen_type` to the screenmanager"""
 
-        :return: The name of the newly created screen"""
+        new_widget = None
 
-        self.add_widget(CookbookToCScreen(new, name=cookbook))
+        if name not in self.screen_names:
+            match screen_type.lower():
+                case 'cookbook':
+                    new_widget = CookbookToCScreen(new, name=name)
+
+                case 'bookshelf':
+                    new_widget = BookShelfScreen(name=name)
+
+                case 'recipe':
+                    new_widget = RecipeScreen(name=name)
+
+            self.add_widget(new_widget)
+            
 
         if change:
-            self.wait_for_trans(cookbook)
+            self.wait_for_trans(name, dt)
+
+        else:
+            return True
 
 
     def create_new_cookbook(self):
@@ -35,21 +53,8 @@ class Controller(ScreenManager):
         recipe_creator.open()
 
 
-    def add_bookshelf_screen(self):
-        bookshelf = BookShelfScreen(name='bookshelf')
-
-        self.add_widget(bookshelf)
-        self.wait_for_trans('bookshelf')
-
-
-    def add_recipe_screen(self):
-        print('Changing to recipe screen....')
-
-        return True
-
-
-    def wait_for_trans(self, newscreen, dt=2):
+    def wait_for_trans(self, new_screen, dt=2):
         def _change_current(nscreen, dt):
             self.current = nscreen
 
-        Clock.schedule_once(partial(_change_current, newscreen), dt)
+        Clock.schedule_once(partial(_change_current, new_screen), dt)

@@ -1,8 +1,8 @@
 #:kivy 2.3.0
 
-#:import TextAndLabel groshy.gui.recipe_form_helpers
-#:import IngredientEntry groshy.gui.recipe_form_helpers
-#:import IngredientBox groshy.gui.recipe_form_helpers
+#:import TextAndLabel groshy.gui.utils
+#:import IngredientEntry groshy.gui.recipe_form_utils
+#:import IngredientBox groshy.gui.recipe_form_utils
 
 
 <RecipeForm>:
@@ -15,23 +15,26 @@
         orientation: 'vertical'
         RelativeLayout:
             Button:
-                size_hint: 0.2, 0.1
+                size_hint: 0.2, None
+                height: urlbox.height
                 pos_hint: {'left': 1, 'bottom': 1}
                 text: "Cancel"
                 on_press: root.dismiss()
 
             Button:
                 id: submit_recipe
-                size_hint: 0.2, 0.1
+                size_hint: 0.2, None
+                height: urlbox.height
                 disabled: False
                 pos_hint: {'right': 1, 'bottom': 1}
                 text: "Submit"
-                on_press: root.sm.add_recipe_screen()
+                #on_press: root.sm.add_recipe_screen()
 
             TextInput:
                 id: urlbox
                 pos_hint: {'center_x': 0.5, 'bottom': 1}
-                size_hint: 0.5, 0.1
+                size_hint: 0.5, None
+                height: self.minimum_height
                 text_halign: 'center'
 
             ScrollView:
@@ -45,7 +48,7 @@
                     id: scrollbox
                     size_hint_y: None
                     height: dp(900)
-                    spacing: dp(5)
+                    spacing: dp(8)
                     padding: 3
                     orientation: 'vertical'
 

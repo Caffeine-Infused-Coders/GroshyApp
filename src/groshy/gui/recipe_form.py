@@ -1,7 +1,8 @@
 from kivy.uix.popup import Popup
 
 from groshy.recipe import Recipe
-from groshy.gui.recipe_form_helpers import MultiEntryBox, TextAndLabel, MultiEntryBoxGrid
+from groshy.gui.utils import TextAndLabel
+from groshy.gui.recipe_form_utils import MultiEntryBox, MultiEntryBoxGrid
 
 
 class RecipeForm(Popup):
@@ -21,7 +22,7 @@ class RecipeForm(Popup):
 
             if field == 'description':
                 tal.ids.data_entry.multiline = True
-                tal.data_entry.height = 500
+                tal.ids.data_entry.height = 500
             elif field in ('ingredients', 'instructions'):
                 tal = MultiEntryBoxGrid()
                 tal.ids.data_name.text = f"{field.upper().replace('_', ' ')}:"

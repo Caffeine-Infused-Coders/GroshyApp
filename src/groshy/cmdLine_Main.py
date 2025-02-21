@@ -29,7 +29,7 @@ def list_dbs(db_type: AbstractDB):
         elif db_type is Pantry:
             active = Pantry(db, True)
 
-        print(f"Saving Recipe in {active.get_display_name()}")
+        print(f"Saving Recipe in {active.get_display_name(active.name)}")
     else:
         db = input("Please name your first cookbook!\nName:\n\t")
         active = CookBook(db, True)
@@ -85,7 +85,7 @@ def main():
         
         print("Saving recipe to cookbook...")
 
-        activeCookbook.db_add([rec.model_dump()])  # type: ignore
+        activeCookbook.save_recipe(rec)  # type: ignore
 
         print("Here are the ingredients")
         for ing in rec.ingredients:

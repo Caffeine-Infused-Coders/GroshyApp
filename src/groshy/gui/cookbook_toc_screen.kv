@@ -1,31 +1,55 @@
 #:kivy 2.3.0
 
+#:import AddEntry groshy.gui.utils
+
 <RecipeLabel>:
     text: ''
-    pos_hint: {'top': 1}
+    size_hint: 0.3, None
+    height: 40
 
 <CookBookToCScreen>:
     id: toc_screen
     RelativeLayout:
-        Button:
-            pos_hint: {'top': 1, 'right': 1}
-            text: 'Add Recipe'
+        size_hint: 0.95, 0.95
+        pos_hint: {'top': 1}
+
+        AddEntry:
+            pos_hint: {'top': 0.97, 'right': 0.85}
             on_press: app.screen_manager.create_new_recipe()
 
-        BoxLayout:
-            orientation: 'vertical'
+        Label:
+            id: cookbook_title
+            size_hint: 1, None
+            height: self.font_size
+            pos_hint: {'top': 0.87, 'center_x': 0.5}
+            text: ''
+            font_size: '24sp'
+            underline: True
+            bold: True
+
+        GridLayout:
+            id: recipe_box
+            size_hint: 0.85, 0.6
+            pos_hint: {'top': 0.8, 'center_x': 0.5, 'bottom': 0.7}
+            cols: 1
+            padding: 10
+            spacing: 20
 
             Label:
-                text: toc_screen.cookbook_data.name
+                size_hint: 0.5, None
+                height: self.font_size
+                pos_hint: {'top': 0.8, 'center_x': 0.5}
+                text: 'Table of Contents'
+                font_size: '16sp'
                 underline: True
-                bold: True
+                italic: True
 
-            BoxLayout:
-                id: recipe_box
-                orientation: 'vertical'
-                padding: 10
-                spacing: 15
-
+        Button:
+            pos_hint: {'bottom': 1, 'center_x': 0.5}
+            size_hint: 0.4, None
+            height: 60
+            text: 'Back'
+            on_press: root.parent.add_screen(screen_type='bookshelf', name='bookshelf', change=True, new=True, dt=0.5)
 
 
 

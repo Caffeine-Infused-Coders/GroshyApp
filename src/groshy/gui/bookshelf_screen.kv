@@ -1,20 +1,26 @@
 #:kivy 2.3.0
 
+#:import AddEntry groshy.gui.recipe_form_utils
+
+<CookBookButton>:
+    size_hint: 0.8, 0.8
+    on_press: print(self.text)
+
+
 <BookShelfScreen>:
     RelativeLayout:
-        Button:
-            pos_hint: {'right': 1, 'top': 1}
-            text: "Add Cookbook"
-
         BoxLayout:
             orientation: 'vertical'
             spacing: 50
             padding: 20
+            AddEntry:
+                pos_hint: {'top': 0.9, 'right': 0.95}
+                on_press: root.parent.create_new_cookbook()
 
             Label:
                 text: "The BookShelf"
                 size_hint: 1, None
-                height: 20
+                height: 40
                 font_size: '24sp'
                 bold: True
                 halign: 'center'
@@ -22,6 +28,8 @@
 
             GridLayout:
                 id: cookbooks
-                cols: 3
-                spacing: 10, 10
-                padding: [10, 10, 10, 10]
+                size_hint: 0.7, 0.8
+                pos_hint: {'center_x': 0.5}
+                cols: 1
+                spacing: 20, 20
+                padding: [10, 10, 10, 30]

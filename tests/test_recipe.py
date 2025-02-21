@@ -14,7 +14,7 @@ def test_recipe_building(url):
 
 
 def test_recipe_dummy():
-    recipe = Recipe._dummy_recipe()
+    recipe = Recipe.make_empty_recipe()
 
     recipe_dict = recipe.model_dump()
 
