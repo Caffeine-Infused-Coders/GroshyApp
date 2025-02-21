@@ -1,4 +1,3 @@
-
 from textwrap import dedent
 from groshy.abstract_db import AbstractDB
 
@@ -7,12 +6,13 @@ from groshy.cookbook import CookBook
 from groshy.pantry import Pantry
 from groshy.cmd_line_functions import write_recipe
 
+
 def list_dbs(db_type: AbstractDB):
     def _convert_display_to_db(name: str):
-        return name.replace(' ', '_')
+        return name.replace(" ", "_")
 
     def _convert_db_to_display(name: str):
-        return name.replace('_', ' ').strip('.json')
+        return name.replace("_", " ").strip(".json")
 
     if dbs := db_type.fetch_dbs():
         print(f"Available {str(db_type)}: ")
@@ -43,16 +43,19 @@ def main():
         activeCookbook = None
         activePantry = None
 
-        
-        resp = input(dedent("""
+        resp = input(
+            dedent(
+                """
                             How would you like to add a new recipe:
                                 (M)anually
                                 (A)utomatically 
                                 (or e(X)it)
-                            Answer: """))
+                            Answer: """
+            )
+        )
 
         url = None
-        
+
         match resp.lower():
             case "a":
                 url = str(input("Paste URL here: "))
@@ -60,13 +63,15 @@ def main():
                 if (rec := Recipe.fetch_recipe(url)).name == "N/A":
                     print("Oops something went wrong")
                     continue
-                    
+
                 else:
                     print(f"Recipe Name: {rec.name}")
                     print(f"Recipe Category: {rec.category}")
                     print(f"Recipe Cooking Time: {rec.cooking_time}")
-                
-                    resp = input("Looks like we got some info. Does this look right? (y/n): ")
+
+                    resp = input(
+                        "Looks like we got some info. Does this look right? (y/n): "
+                    )
 
                     if resp.lower in ["no", "n"]:
                         print("Sorry about that, restarting program :(")
@@ -82,7 +87,7 @@ def main():
                 continue
 
         activeCookbook = list_dbs(CookBook)
-        
+
         print("Saving recipe to cookbook...")
 
         activeCookbook.save_recipe(rec)  # type: ignore
@@ -116,15 +121,15 @@ def question():
             exit()
 
 
-
 if __name__ == "__main__":
 
-    print("""
+    print(
+        """
           -------------------
                 Howdy,
           Welcome to your new
              Recipe Book!
-          -------------------""")
-    
+          -------------------"""
+    )
+
     main()
-            

@@ -5,7 +5,7 @@ from groshy.abstract_db import AbstractDB
 
 
 class CookBook(AbstractDB):
-    def __init__(self, db_name: str,  newckbk: bool):
+    def __init__(self, db_name: str, newckbk: bool):
         super().__init__(db_name, "cookbook", newckbk)
         self.new = newckbk
         self.pages = self._data
@@ -14,7 +14,7 @@ class CookBook(AbstractDB):
 
         success = False
 
-        json_recipe = {recipe.name: recipe.model_dump(exclude={'name'})}
+        json_recipe = {recipe.name: recipe.model_dump(exclude={"name"})}
 
         if self.db_add([json_recipe]):
             print(f"Recipe saved to {self.name}")
@@ -36,16 +36,15 @@ class CookBook(AbstractDB):
 
     @classmethod
     def fetch_dbs(cls) -> list[str]:
-        """ Reads cookbook db filenames in cookbook directory, returns them as a list of strings."""
+        """Reads cookbook db filenames in cookbook directory, returns them as a list of strings."""
 
         dbs = []
 
         if Path.is_dir(path := Path.joinpath(AbstractDB.db_root, "cookbook")):
             for db in path.iterdir():
-                dbs.append(db.name.replace('.json', ''))
+                dbs.append(db.name.replace(".json", ""))
 
         return dbs
-
 
 
 if __name__ == "__main__":
@@ -57,7 +56,9 @@ if __name__ == "__main__":
     print(f"Location: {babys_first_cookbook.dir}")
     print(f"Full Path: {babys_first_cookbook.path}")
 
-    recipe = Recipe.fetch_recipe("https://www.thediaryofarealhousewife.com/snickerdoodle-dip/")
+    recipe = Recipe.fetch_recipe(
+        "https://www.thediaryofarealhousewife.com/snickerdoodle-dip/"
+    )
 
     print("Got the data")
 

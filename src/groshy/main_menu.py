@@ -17,15 +17,26 @@ class Ui_mainMenuWindow(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(mainMenuWindow)
         self.verticalLayout.setObjectName("verticalLayout")
         self.MainMenu = QtWidgets.QVBoxLayout()
-        self.MainMenu.setSizeConstraint(QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint)
+        self.MainMenu.setSizeConstraint(
+            QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint
+        )
         self.MainMenu.setObjectName("MainMenu")
-        spacerItem = QtWidgets.QSpacerItem(20, 50, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
+        spacerItem = QtWidgets.QSpacerItem(
+            20,
+            50,
+            QtWidgets.QSizePolicy.Policy.Minimum,
+            QtWidgets.QSizePolicy.Policy.Maximum,
+        )
         self.MainMenu.addItem(spacerItem)
         self.welcomeMessage = QtWidgets.QLabel(parent=mainMenuWindow)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Maximum)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Maximum
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.welcomeMessage.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.welcomeMessage.sizePolicy().hasHeightForWidth()
+        )
         self.welcomeMessage.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("DejaVu Sans Mono")
@@ -41,37 +52,63 @@ class Ui_mainMenuWindow(object):
         self.welcomeMessage.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.welcomeMessage.setObjectName("welcomeMessage")
         self.MainMenu.addWidget(self.welcomeMessage)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed)
+        spacerItem1 = QtWidgets.QSpacerItem(
+            20,
+            40,
+            QtWidgets.QSizePolicy.Policy.Minimum,
+            QtWidgets.QSizePolicy.Policy.Fixed,
+        )
         self.MainMenu.addItem(spacerItem1)
         self.cookbooksButton = QtWidgets.QPushButton(parent=mainMenuWindow)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.cookbooksButton.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.cookbooksButton.sizePolicy().hasHeightForWidth()
+        )
         self.cookbooksButton.setSizePolicy(sizePolicy)
         self.cookbooksButton.setMinimumSize(QtCore.QSize(256, 40))
         self.cookbooksButton.setFlat(False)
         self.cookbooksButton.setObjectName("cookbooksButton")
         self.MainMenu.addWidget(self.cookbooksButton)
         self.manualRecipeButton = QtWidgets.QPushButton(parent=mainMenuWindow)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed
+        )
         sizePolicy.setHorizontalStretch(1)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.manualRecipeButton.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.manualRecipeButton.sizePolicy().hasHeightForWidth()
+        )
         self.manualRecipeButton.setSizePolicy(sizePolicy)
         self.manualRecipeButton.setMinimumSize(QtCore.QSize(256, 40))
         self.manualRecipeButton.setObjectName("manualRecipeButton")
-        self.MainMenu.addWidget(self.manualRecipeButton, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
+        self.MainMenu.addWidget(
+            self.manualRecipeButton, 0, QtCore.Qt.AlignmentFlag.AlignHCenter
+        )
         self.urlRecipeButton = QtWidgets.QPushButton(parent=mainMenuWindow)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.urlRecipeButton.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.urlRecipeButton.sizePolicy().hasHeightForWidth()
+        )
         self.urlRecipeButton.setSizePolicy(sizePolicy)
         self.urlRecipeButton.setMinimumSize(QtCore.QSize(256, 40))
         self.urlRecipeButton.setObjectName("urlRecipeButton")
-        self.MainMenu.addWidget(self.urlRecipeButton, 0, QtCore.Qt.AlignmentFlag.AlignRight)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed)
+        self.MainMenu.addWidget(
+            self.urlRecipeButton, 0, QtCore.Qt.AlignmentFlag.AlignRight
+        )
+        spacerItem2 = QtWidgets.QSpacerItem(
+            20,
+            40,
+            QtWidgets.QSizePolicy.Policy.Minimum,
+            QtWidgets.QSizePolicy.Policy.Fixed,
+        )
         self.MainMenu.addItem(spacerItem2)
         self.verticalLayout.addLayout(self.MainMenu)
 
@@ -82,15 +119,20 @@ class Ui_mainMenuWindow(object):
 
     def retranslateUi(self, mainMenuWindow):
         _translate = QtCore.QCoreApplication.translate
-        mainMenuWindow.setWindowTitle(_translate("mainMenuWindow", "Groshy: Action Selection"))
+        mainMenuWindow.setWindowTitle(
+            _translate("mainMenuWindow", "Groshy: Action Selection")
+        )
         self.welcomeMessage.setText(_translate("mainMenuWindow", "Welcome to Goshy"))
         self.cookbooksButton.setText(_translate("mainMenuWindow", "View CookBooks"))
-        self.manualRecipeButton.setText(_translate("mainMenuWindow", "Enter Recipe Manually"))
+        self.manualRecipeButton.setText(
+            _translate("mainMenuWindow", "Enter Recipe Manually")
+        )
         self.urlRecipeButton.setText(_translate("mainMenuWindow", "Enter Recipe URL"))
 
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     mainMenuWindow = QtWidgets.QWidget()
     ui = Ui_mainMenuWindow()

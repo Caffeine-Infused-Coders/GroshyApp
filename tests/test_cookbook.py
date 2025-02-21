@@ -25,6 +25,5 @@ def test_save_recipe(url, make_test_cb):
     with open(make_test_cb.path, "rb") as tstfile:
         contents = json.load(tstfile)
 
-
     assert recipe.name in contents
-    assert recipe.description == contents[recipe.name]["description"] 
+    assert recipe.description == contents[recipe.name]["description"]

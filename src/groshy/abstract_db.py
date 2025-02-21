@@ -4,12 +4,12 @@ from abc import ABC, abstractmethod
 
 
 class AbstractDB(ABC):
-    
+
     cwd = Path(__file__).parent
     db_root = Path.joinpath(cwd, ".dbs")
-    
-    def __init__(self, db_name: str, db_type: str, new: bool=False):
-        self.name = db_name.replace(' ', '_')
+
+    def __init__(self, db_name: str, db_type: str, new: bool = False):
+        self.name = db_name.replace(" ", "_")
         self.db_type = db_type
         self.dir = Path.joinpath(AbstractDB.db_root, self.db_type)
         self.path = Path.joinpath(self.dir, f"{self.name}.json")
@@ -26,13 +26,15 @@ class AbstractDB(ABC):
                 print(f"{db_name} ready for use (as {self.name})")
             else:
                 print(f"{db_name} could not be built (as {self.name})")
-                self.db_remove()               
+                self.db_remove()
         else:
             res = self.db_read()
 
             if not res:
-                print(f"Could not access {AbstractDB.get_display_name(self.name)} (as {self.name})."
-                      "\n\nPlease reboot the program")
+                print(
+                    f"Could not access {AbstractDB.get_display_name(self.name)} (as {self.name})."
+                    "\n\nPlease reboot the program"
+                )
                 exit()
 
     def build_db(self) -> bool:
@@ -41,14 +43,18 @@ class AbstractDB(ABC):
         success = False  # Default return value for this method
 
         try:
-            with open(self.path, "x") as db:  # Create database json file and dump message
+            with open(
+                self.path, "x"
+            ) as db:  # Create database json file and dump message
                 json.dump(msg, db, indent=4)
-                
+
             print(f"{self.name} created successfully")
             success = True  # Signal creation of db
 
         except FileExistsError:
-            print(f"A {self.db_type} named {self.name} already exists in location {self.dir}...")  # noqa: E501
+            print(
+                f"A {self.db_type} named {self.name} already exists in location {self.dir}..."
+            )  # noqa: E501
 
             ans_flg = False
             attempts = 3
@@ -59,7 +65,9 @@ class AbstractDB(ABC):
                     case "yes" | "y":
                         ans_flg = True
                         self.name = input("Enter new name: ")
-                        self.path = Path.joinpath(self.dir, f"{self.name.replace(' ', '_')}.json")
+                        self.path = Path.joinpath(
+                            self.dir, f"{self.name.replace(' ', '_')}.json"
+                        )
                         success = self.build_db()
                     case "no" | "n":
                         ans_flg = True
@@ -78,7 +86,9 @@ class AbstractDB(ABC):
         self._data += msg  # Update runtime representation of db data
 
         try:
-            with open(self.path, "w") as db:  # Open with 'w' permissions as all the data is re-dumped to db
+            with open(
+                self.path, "w"
+            ) as db:  # Open with 'w' permissions as all the data is re-dumped to db
                 json.dump(self._data, db, indent=4, default=str)
                 db.write("\n")  # Add new line to end of db file
                 success = True
@@ -94,13 +104,15 @@ class AbstractDB(ABC):
                 self._data = json.load(db)
             success = True
         except FileNotFoundError:
-            print(f"No database file found. Double check this location: {self.path}")  # TODO: make this a logging statement  # noqa: E501
+            print(
+                f"No database file found. Double check this location: {self.path}"
+            )  # TODO: make this a logging statement  # noqa: E501
             pass
 
         return success
 
     def db_remove(self):
-        """ Delete db from db repository. """
+        """Delete db from db repository."""
         success = False
         print(f"Removing {self.name} from {self.dir}")
         Path.unlink(self.path)
@@ -113,16 +125,14 @@ class AbstractDB(ABC):
     @staticmethod
     def get_display_name(db: str):
         """Returns the db name with the underscores replaced by spaces"""
-        return db.replace('_', ' ')
+        return db.replace("_", " ")
 
     @staticmethod
     def get_db_name(display_name: str):
         """Returns the db name as saved in the system"""
-        return display_name.replace(' ', '_')
+        return display_name.replace(" ", "_")
 
     @classmethod
     @abstractmethod
     def fetch_dbs(cls) -> list[str]:
         pass
-
-

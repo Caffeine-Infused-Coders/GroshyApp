@@ -11,16 +11,16 @@ class Pantry(AbstractDB):
         super().__init__(name, "pantry", pantrynew)
         self.shelves = self._data
 
-
     def pantry_write(self):
         """Dumps Ingredient models into list before passing to db_add."""
 
         dump_list = []
         for ingredients in self.shelves:
-            dump_list.append({ingredients.name: ingredients.model_dump(exclude={'name'})})
-            
-        self.db_add(dump_list)
+            dump_list.append(
+                {ingredients.name: ingredients.model_dump(exclude={"name"})}
+            )
 
+        self.db_add(dump_list)
 
     def pantry_update(self, foods: list[Ingredient], write: bool):
         """Update Pantry DB with new list of Ingredients."""
@@ -29,8 +29,6 @@ class Pantry(AbstractDB):
 
         if write:
             self.pantry_write()
-
-
 
     def fetch_dbs(self) -> list[str]:
         """Reads pantry db file names in pantry directory, returns them as a list of strings."""
@@ -43,7 +41,7 @@ class Pantry(AbstractDB):
 
         return dbs
 
-    
+
 if __name__ == "__main__":
 
     from groshy.recipe import Recipe
@@ -55,7 +53,9 @@ if __name__ == "__main__":
     print(f"Location: {open_pantry.dir}")
     print(f"Full Path: {open_pantry.path}")
 
-    recipe = Recipe.fetch_recipe("https://www.thediaryofarealhousewife.com/snickerdoodle-dip/")
+    recipe = Recipe.fetch_recipe(
+        "https://www.thediaryofarealhousewife.com/snickerdoodle-dip/"
+    )
 
     print("Got the data")
 

@@ -8,4 +8,3 @@ class Ingredient(BaseModel):
     isEssential: bool = False
     last_bought: date
     shelf_life: int = 7
-

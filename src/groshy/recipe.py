@@ -14,21 +14,22 @@ from groshy.ingredient import Ingredient
 
 class Recipe(BaseModel):
     """Primary data class which holds recipe scraped from internet or manually
-        Fields:
-            - name (str)
-            - description (str)
-            - ingredients (list[str])
-            - instructions (list[str])
-            - cuisine (str): i.e. Soul Food, American, etc...
-            - category (str)
-            - yields (str): Defaults to '1 Serving'
-            - cooking_time (int): Defaults to 0 in units of minutes
-            - price (float): Defaults to 0.0
-            
-        Methods:
-            - prep_ingredients -> list[Ingredient]
-            - write_recipe -> Recipe
-            - fetch_recipe -> Recipe"""
+    Fields:
+        - name (str)
+        - description (str)
+        - ingredients (list[str])
+        - instructions (list[str])
+        - cuisine (str): i.e. Soul Food, American, etc...
+        - category (str)
+        - yields (str): Defaults to '1 Serving'
+        - cooking_time (int): Defaults to 0 in units of minutes
+        - price (float): Defaults to 0.0
+
+    Methods:
+        - prep_ingredients -> list[Ingredient]
+        - write_recipe -> Recipe
+        - fetch_recipe -> Recipe"""
+
     name: str
     description: str
     ingredients: list[dict]
@@ -40,18 +41,20 @@ class Recipe(BaseModel):
     price: float = 0.0
 
     def prep_ingredients(self) -> list[Ingredient]:
-        """ Converts list of strings into a list of Ingredient objects with default 
+        """Converts list of strings into a list of Ingredient objects with default
         last_bought values of today"""
 
         ingredients_list = []
         for x in self.ingredients:
-            ingredients_list.append(Ingredient(name=x["name"], last_bought=dt.date.today()))
+            ingredients_list.append(
+                Ingredient(name=x["name"], last_bought=dt.date.today())
+            )
 
         return ingredients_list
 
     @classmethod
-    def fetch_recipe(cls, url:str) -> Recipe:
-        """ Retrieves information about the recipe using a provided URL """
+    def fetch_recipe(cls, url: str) -> Recipe:
+        """Retrieves information about the recipe using a provided URL"""
 
         success = False
         rec = cls.make_empty_recipe()
@@ -73,34 +76,36 @@ class Recipe(BaseModel):
         finally:
             if success:
                 recd = _rec.to_json()
-                ingredients = Recipe.gather_ingredients(recd['ingredients'])
+                ingredients = Recipe.gather_ingredients(recd["ingredients"])
                 recd.update({"ingredients": ingredients})
                 # test_unpacking(**recd)
                 recd = Recipe._extract_recipe_fields(recd)
                 rec = Recipe(**recd)
-            
+
             return rec
 
     @classmethod
     def make_empty_recipe(cls) -> Recipe:
-        return Recipe(name="N/A", 
-                      description="N/A", 
-                      ingredients=[{"N/A": "N/A"}], 
-                      instructions=["N/A"], 
-                      cuisine="N/A", 
-                      category="N/A",
-                      yields="N/A",
-                      cooking_time=0,
-                      price=0)
+        return Recipe(
+            name="N/A",
+            description="N/A",
+            ingredients=[{"N/A": "N/A"}],
+            instructions=["N/A"],
+            cuisine="N/A",
+            category="N/A",
+            yields="N/A",
+            cooking_time=0,
+            price=0,
+        )
 
     @staticmethod
     def gather_ingredients(ingredient_list: list[str]) -> list[dict]:
-        """ Parses str list of ingredients into ingredient dicts using the 
-        ingredient_parser package. """
+        """Parses str list of ingredients into ingredient dicts using the
+        ingredient_parser package."""
 
         parsed = []
         try:
-            nltk.data.find('averaged_perceptron_tagger')
+            nltk.data.find("averaged_perceptron_tagger")
         except LookupError:
             nltk.download("averaged_perceptron_tagger", quiet=True)
 
@@ -115,7 +120,7 @@ class Recipe(BaseModel):
                 ingredient_amount = "some"
                 pass
 
-            ingredient["name"] = parsed_ingredient.name.text # type: ignore
+            ingredient["name"] = parsed_ingredient.name.text  # type: ignore
             if ingredient_amount == "some":
                 ingredient["amount"] = ingredient_amount
                 ingredient["unit"] = "N/A"
