@@ -1,3 +1,5 @@
+"""Defines the Cookbook DB type, a child of the AbstractDB class."""
+
 from pathlib import Path
 
 from groshy.recipe import Recipe
@@ -5,12 +7,20 @@ from groshy.abstract_db import AbstractDB
 
 
 class CookBook(AbstractDB):
-    def __init__(self, db_name: str, newckbk: bool):
-        super().__init__(db_name, "cookbook", newckbk)
-        self.new = newckbk
+    def __init__(self, db_name: str):
+        """Cookbook db type"""
+
+        super().__init__(db_name, "cookbook")
         self.pages = self._data
 
     def save_recipe(self, recipe: Recipe) -> bool:
+        """Dumps the provided recipe in json format before saving it to actual db file
+
+        Args:
+            :param recipe (Recipe) Recipe object to be saved
+
+        Returns:
+            :return bool Status of save operation"""
 
         success = False
 
@@ -36,7 +46,8 @@ class CookBook(AbstractDB):
 
     @classmethod
     def fetch_dbs(cls) -> list[str]:
-        """Reads cookbook db filenames in cookbook directory, returns them as a list of strings."""
+        """Reads cookbook db filenames in cookbook directory, returns them as a list of
+        strings."""
 
         dbs = []
 

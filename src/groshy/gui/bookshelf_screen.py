@@ -9,12 +9,11 @@ class CookBookButton(Button):
 
 
 class BookShelfScreen(Screen):
+    """Displays all available Cookbook DBs on system"""
 
     def open_cookbook_from_button(self, instance):
         name = CookBook.get_db_name(instance.text)
-        self.parent.add_screen(
-            screen_type="cookbook", name=name, change=True, new=False, dt=0.5
-        )
+        self.parent.add_screen(screen_type="cookbook", name=name, dt=0.5)
 
     def on_enter(self):
         cb_list = CookBook.fetch_dbs()

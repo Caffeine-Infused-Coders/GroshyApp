@@ -1,3 +1,5 @@
+"""Defines Recipe class which is a subclass of Pydantic BaseModel"""
+
 from __future__ import annotations
 import datetime as dt
 
@@ -14,6 +16,7 @@ from groshy.ingredient import Ingredient
 
 class Recipe(BaseModel):
     """Primary data class which holds recipe scraped from internet or manually
+
     Fields:
         - name (str)
         - description (str)
@@ -86,6 +89,7 @@ class Recipe(BaseModel):
 
     @classmethod
     def make_empty_recipe(cls) -> Recipe:
+        """Creates and returns a Recipe object with defaults, all strings are 'N/A'"""
         return Recipe(
             name="N/A",
             description="N/A",
@@ -133,7 +137,13 @@ class Recipe(BaseModel):
         return parsed
 
     @staticmethod
-    def _extract_recipe_fields(recdict: dict):
+    def _extract_recipe_fields(recdict: dict) -> dict:
+        """Translates scraped recipe to the fields of Recipe object. Returns the
+        translated dictionary.
+
+             Args:
+                 :param recdict (dict) Dictionary from web scraped recipe"""
+
         data_fields = [
             "title",
             "description",

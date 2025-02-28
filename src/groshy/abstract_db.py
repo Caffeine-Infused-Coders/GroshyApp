@@ -1,3 +1,6 @@
+"""Defines the Abstract DB Class which acts as parent class to Groshy's DB objects
+(i.e. Pantry, Cookbook)."""
+
 import json
 from pathlib import Path
 from abc import ABC, abstractmethod
@@ -8,14 +11,32 @@ class AbstractDB(ABC):
     cwd = Path(__file__).parent
     db_root = Path.joinpath(cwd, ".dbs")
 
-    def __init__(self, db_name: str, db_type: str, new: bool = False):
+    def __init__(self, db_name: str, db_type: str):
+        """Abstract Base Class for app DB types. This handles atomic data manipulation
+        functions such as reading and writing to files
+
+        Args:
+            :param db_name str Name of db to be created or opened
+            :param db_type str Type specifier of db
+        """
+
         self.name = db_name.replace(" ", "_")
         self.db_type = db_type
         self.dir = Path.joinpath(AbstractDB.db_root, self.db_type)
         self.path = Path.joinpath(self.dir, f"{self.name}.json")
         self._data = []  # Representation of data in the database
 
-        if new:
+        try:
+            res = self.db_read()
+
+            if not res:
+                print(
+                    f"Could not access {AbstractDB.get_display_name(self.name)} (as {self.name})."
+                    "\n\nPlease reboot the program"
+                )
+                exit()  # TODO: Implement DB_ACCESS_ERROR Exception
+
+        except FileNotFoundError:
             if not AbstractDB.db_root.exists():
                 Path.mkdir(AbstractDB.db_root)
                 Path.mkdir(self.dir)
@@ -27,17 +48,11 @@ class AbstractDB(ABC):
             else:
                 print(f"{db_name} could not be built (as {self.name})")
                 self.db_remove()
-        else:
-            res = self.db_read()
-
-            if not res:
-                print(
-                    f"Could not access {AbstractDB.get_display_name(self.name)} (as {self.name})."
-                    "\n\nPlease reboot the program"
-                )
-                exit()
+                exit()  # TODO: Implement DB_BUILD_ERROR Exception
 
     def build_db(self) -> bool:
+        """Creates new DB file and dumps and initial empty json list object into
+        the file so that future reads do not throw an exception. Returns build status"""
 
         msg = []  # Message to print in new database file
         success = False  # Default return value for this method
@@ -53,8 +68,9 @@ class AbstractDB(ABC):
 
         except FileExistsError:
             print(
-                f"A {self.db_type} named {self.name} already exists in location {self.dir}..."
-            )  # noqa: E501
+                f"A {self.db_type} named {self.name} already exists in location "
+                f"{self.dir}..."
+            )
 
             ans_flg = False
             attempts = 3
@@ -80,7 +96,7 @@ class AbstractDB(ABC):
         return success
 
     def db_add(self, msg: list[dict]):
-
+        """Add an entry, or multiple, to the db instance. Both runtime and saved to disk"""
         success = False
 
         self._data += msg  # Update runtime representation of db data
@@ -98,6 +114,7 @@ class AbstractDB(ABC):
         return success
 
     def db_read(self) -> bool:
+        """Read information on disk into runtime"""
         success = False
         try:
             with open(self.path, "r") as db:

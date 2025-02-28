@@ -1,3 +1,9 @@
+"""Defines the Controller class which is a child of Kivy's ScreenManager.
+It is responsible for transitioning screens, adding/creating new screens or creating
+popup windows."""
+
+from enum import Enum, unique
+
 from kivy.clock import Clock
 from kivy.properties import partial, ListProperty
 from kivy.uix.screenmanager import ScreenManager
@@ -10,6 +16,15 @@ from groshy.gui.bookshelf_screen import BookShelfScreen
 from groshy.gui.recipe_screen import RecipeScreen
 
 
+@unique
+class ScreenType(Enum):
+    """Enum defining the different types of screen"""
+
+    BOOKSHELF = 1
+    COOKBOOK = 2
+    RECIPE = 3
+
+
 class Controller(ScreenManager):
     def __init__(self, **kwargs):
         """Subclass of ScreenManager acts as controller for GUI."""
@@ -18,37 +33,45 @@ class Controller(ScreenManager):
             ListProperty()
         )  # Tracks all currently available cookbooks, set in splash screen
 
-    def add_screen(
-        self, screen_type: str, name: str, change: bool, new: bool, dt: int = 2
-    ):
+    def add_screen(self, screen_type: ScreenType, name: str):
         """Adds a new screen of type `screen_type` to the screenmanager
         Args:
-            :param screen_type (str) The type of screen to add to Controller, i.e. bookshelf, recipe, cookbook
-            :param name (str) Name of new screen
-            :param change (bool) Flag to enable transition to screen after creation
-            :param new (bool) Flag indicating the creation of a new db as opposed to opening one
-            :param dt (int) Delay for transition to new screen"""
+            :param screen_type (ScreenType) The type of screen to add to Controller,
+            (i.e. bookshelf, recipe, cookbook)
+            :param name (str) Name of new screen"""
 
         new_widget = None
 
         if name not in self.screen_names:
-            match screen_type.lower():
-                case "cookbook":
-                    new_widget = CookbookToCScreen(new, name=name)
-
-                case "bookshelf":
+            match screen_type:
+                case ScreenType.BOOKSHELF:
                     new_widget = BookShelfScreen(name=name)
 
-                case "recipe":
+                case ScreenType.COOKBOOK:
+                    new_widget = CookbookToCScreen(name=name)
+
+                case ScreenType.RECIPE:
                     new_widget = RecipeScreen(name=name)
 
             self.add_widget(new_widget)
 
-        if change:
-            self.wait_for_trans(name, dt)
+    def change_screen(
+        self, screen_name: str, screen_type: ScreenType, dt: int | float = 0.5
+    ):
+        """Changes current screen to new screen specified by `screen_name`.
+        Automatically adds a new screen if one with the passed name doesn't already
+        exist.
 
-        else:
-            return True
+        Args:
+            :param screen_name (str) Name of new screen to change to
+            :param screen_type (ScreenType) Type of new screen
+            :param dt (int | float) Screen transition delay in seconds [defaults to 0.5]
+        """
+
+        if screen_name not in self.screen_names:
+            self.add_screen(screen_type=screen_type, name=screen_name)
+
+        self.wait_for_trans(screen_name, dt)
 
     def create_new_cookbook(self):
         """Creates and opens a Popup form for creating a new cookbook db"""
@@ -66,8 +89,8 @@ class Controller(ScreenManager):
         """Schedules the transition to a new screen on a delay (dt)
 
         Args:
-        :param new_screen (str) Name of screen to transition to.
-        :param dt (int | float) Duration of delay in seconds. [defaults to 2]"""
+            :param new_screen (str) Name of screen to transition to.
+            :param dt (int | float) Duration of delay in seconds. [defaults to 2]"""
 
         def _change_current(nscreen, dt):
             self.current = nscreen

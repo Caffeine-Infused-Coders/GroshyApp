@@ -1,3 +1,5 @@
+"""Defines the Pantry DB type, a child of the AbstractDB class."""
+
 from pathlib import Path
 
 from groshy.abstract_db import AbstractDB
@@ -5,10 +7,10 @@ from groshy.ingredient import Ingredient
 
 
 class Pantry(AbstractDB):
-    def __init__(self, name: str, pantrynew: bool):
+    def __init__(self, name: str):
         """DB responsible for tracking Ingredients needed and currently 'owned'"""
 
-        super().__init__(name, "pantry", pantrynew)
+        super().__init__(name, "pantry")
         self.shelves = self._data
 
     def pantry_write(self):
