@@ -2,9 +2,9 @@
 dbs/
 .dbs/
 **.$*
-.internal/icon/*
-.internal/logs/*
-.internal/mods/*
+**/.internal/icon/*
+**/.internal/logs/*
+**/.internal/mods/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
