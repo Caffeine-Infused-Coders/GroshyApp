@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 import datetime as dt
+import logging
 
 import nltk
 import requests
@@ -12,6 +13,8 @@ from pydantic import BaseModel
 
 # import groshy.errors as errs
 from groshy.ingredient import Ingredient
+
+log = logging.getLogger(__name__)
 
 
 class Recipe(BaseModel):
@@ -64,7 +67,9 @@ class Recipe(BaseModel):
         try:
             html = requests.get(url)
             if html.status_code == 403:
-                print("Website has forbidden scraping, please manually enter recipe")
+                log.error(
+                    "Website has forbidden scraping, please manually enter recipe"
+                )
                 raise Exception
             _rec = scrape_html(html=html.text, org_url=url)
             success = True
@@ -74,18 +79,18 @@ class Recipe(BaseModel):
                 _rec = scrape_html(html=html.text, org_url=url, wild_mode=True)
                 success = True
             except exc.NoSchemaFoundInWildMode as e:
-                print(e)
+                log.error("Recipe does not have a valid html schema", exc_info=e)
                 # raise errs.BadURLError
-        finally:
-            if success:
-                recd = _rec.to_json()
-                ingredients = Recipe.gather_ingredients(recd["ingredients"])
-                recd.update({"ingredients": ingredients})
-                # test_unpacking(**recd)
-                recd = Recipe._extract_recipe_fields(recd)
-                rec = Recipe(**recd)
 
-            return rec
+        if success:
+            recd = _rec.to_json()
+            ingredients = Recipe.gather_ingredients(recd["ingredients"])
+            recd.update({"ingredients": ingredients})
+            # test_unpacking(**recd)
+            recd = Recipe._extract_recipe_fields(recd)
+            rec = Recipe(**recd)
+
+        return rec
 
     @classmethod
     def make_empty_recipe(cls) -> Recipe:
@@ -165,7 +170,7 @@ class Recipe(BaseModel):
                 else:
                     rec_dict[field] = recdict[data]
             except KeyError as ex:
-                print(f"Recipe '{recdict['title']}' does not have attribute {ex}")
+                log.warning(f"Recipe '{recdict['title']}' does not have attribute {ex}")
                 if field == "description":
                     rec_dict[field] = recdict["title"]
                 elif field == "cuisine":

@@ -3,6 +3,8 @@ Cookbook DB"""
 
 from kivy.uix.popup import Popup
 
+from groshy.gui.utils import ScreenType
+
 
 class CookBookForm(Popup):
     def __init__(self, sm, **kwargs):
@@ -23,7 +25,9 @@ class CookBookForm(Popup):
         if new_cookbook_name not in current_cookbooks and new_cookbook_name != "":
             current_cookbooks.append(new_cookbook_name)
 
-            self.sm.add_screen(screen_type="cookbook", name=new_cookbook_name, dt=1)
+            self.sm.change_screen(
+                screen_name=new_cookbook_name, screen_type=ScreenType.COOKBOOK, dt=1
+            )
             self.dismiss()
 
         else:

@@ -3,6 +3,7 @@
 from kivy.app import App
 from kivy.uix.screenmanager import Screen
 from kivy.uix.label import Label
+from kivy.logger import Logger
 
 from groshy.cookbook import CookBook
 
@@ -12,8 +13,8 @@ class RecipeLabel(Label):
 
     def on_touch_up(self, touch):
         if self.collide_point(*touch.pos):
-            App.get_running_app().screen_manager.add_screen(
-                screen_type="recipe", name="recipe1", dt=1
+            App.get_running_app().screen_manager.change_screen(
+                screen_name="recipe1", screen_type="recipe", dt=1
             )
             return True
 
@@ -23,7 +24,8 @@ class CookbookToCScreen(Screen):
         """Cookbook's `open` presentation, subclass of Kivy Screen"""
         super().__init__(name=name, **kwargs)
 
-        self.cookbook_data = CookBook(name, new)
+        self.cookbook_data = CookBook(name)
+        Logger.debug(f"Cookbook: Cookbook {self.name} initialized")
 
     def on_enter(self, *args):
         self.ids.cookbook_title.text = self.cookbook_data.get_display_name(

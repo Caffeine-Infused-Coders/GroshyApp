@@ -2,8 +2,12 @@
 
 from pathlib import Path
 
+from kivy.logger import Logger
+
 from groshy.recipe import Recipe
 from groshy.abstract_db import AbstractDB
+
+log = Logger
 
 
 class CookBook(AbstractDB):
@@ -27,7 +31,7 @@ class CookBook(AbstractDB):
         json_recipe = {recipe.name: recipe.model_dump(exclude={"name"})}
 
         if self.db_add([json_recipe]):
-            print(f"Recipe saved to {self.name}")
+            log.info(f"Recipe saved to {self.name}")
             success = True
 
         return success

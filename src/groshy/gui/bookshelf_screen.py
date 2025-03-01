@@ -2,6 +2,7 @@ from kivy.uix.button import Button
 from kivy.uix.screenmanager import Screen
 
 from groshy.cookbook import CookBook
+from groshy.gui.utils import ScreenType
 
 
 class CookBookButton(Button):
@@ -13,7 +14,9 @@ class BookShelfScreen(Screen):
 
     def open_cookbook_from_button(self, instance):
         name = CookBook.get_db_name(instance.text)
-        self.parent.add_screen(screen_type="cookbook", name=name, dt=0.5)
+        self.parent.change_screen(
+            screen_name=name, screen_type=ScreenType.COOKBOOK, dt=0.5
+        )
 
     def on_enter(self):
         cb_list = CookBook.fetch_dbs()

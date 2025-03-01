@@ -1,0 +1,32 @@
+
+version = 1
+disable_existing_loggers = true
+
+[formatters]
+standard.format = '%(asctime)s %(name)-20s%(levelname)-10s%(message)s'
+standard.datefmt = '%I %M %S'
+
+info_based.format = '%(asctime)s %(name):-20s%(message)s'
+info_based.datefmt = '%I %M %S'
+
+[handlers]
+
+[handlers.default]
+level = 'DEBUG'
+formatter = 'standard'
+class = 'logging.FileHandler'
+mode = 'a'
+
+[handlers.console]
+level = 'INFO'
+formatter = 'info_based'
+class = 'logging.StreamHandler'
+
+[loggers]
+
+[loggers.root]
+handlers = ['default', 'console']
+level = 'DEBUG'
+
+
+

@@ -1,9 +1,12 @@
 """Defines the Pantry DB type, a child of the AbstractDB class."""
 
+import logging
 from pathlib import Path
 
 from groshy.abstract_db import AbstractDB
 from groshy.ingredient import Ingredient
+
+log = logging.getLogger(__name__)
 
 
 class Pantry(AbstractDB):
@@ -33,7 +36,8 @@ class Pantry(AbstractDB):
             self.pantry_write()
 
     def fetch_dbs(self) -> list[str]:
-        """Reads pantry db file names in pantry directory, returns them as a list of strings."""
+        """Reads pantry db file names in pantry directory, returns them as a list of
+        strings."""
 
         dbs = []
 

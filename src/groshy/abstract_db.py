@@ -5,6 +5,10 @@ import json
 from pathlib import Path
 from abc import ABC, abstractmethod
 
+from kivy.logger import Logger
+
+log = Logger
+
 
 class AbstractDB(ABC):
 
@@ -20,35 +24,40 @@ class AbstractDB(ABC):
             :param db_type str Type specifier of db
         """
 
-        self.name = db_name.replace(" ", "_")
+        self.name = db_name.replace(" ", "_")  # transform to db style name
         self.db_type = db_type
         self.dir = Path.joinpath(AbstractDB.db_root, self.db_type)
         self.path = Path.joinpath(self.dir, f"{self.name}.json")
-        self._data = []  # Representation of data in the database
+        self._data = []  # Container for data in the database
 
+        ## Create db directories if they don't exist
+        if not AbstractDB.db_root.exists():
+            log.debug("Creating .dbs directory")
+            Path.mkdir(AbstractDB.db_root)
+            Path.mkdir(self.dir)
+        elif AbstractDB.db_root.exists() and not self.dir.exists():
+            log.debug(f"Creating {self.dir.name} directory")
+            Path.mkdir(self.dir)
+
+        ## Try to build new db, if File Exists, try reading instead
         try:
-            res = self.db_read()
-
-            if not res:
-                print(
-                    f"Could not access {AbstractDB.get_display_name(self.name)} (as {self.name})."
-                    "\n\nPlease reboot the program"
-                )
-                exit()  # TODO: Implement DB_ACCESS_ERROR Exception
-
-        except FileNotFoundError:
-            if not AbstractDB.db_root.exists():
-                Path.mkdir(AbstractDB.db_root)
-                Path.mkdir(self.dir)
-            elif AbstractDB.db_root.exists() and not self.dir.exists():
-                Path.mkdir(self.dir)
-
             if self.build_db():  # Build new database
-                print(f"{db_name} ready for use (as {self.name})")
+                log.info(f"{db_name} ready for use (as {self.name})")
             else:
-                print(f"{db_name} could not be built (as {self.name})")
+                log.error(f"{db_name} could not be built (as {self.name})")
                 self.db_remove()
                 exit()  # TODO: Implement DB_BUILD_ERROR Exception
+
+        except FileExistsError:
+            if self.db_read():
+                log.info(f"Read data from {self.name}")
+
+            else:
+                log.info(
+                    f"Could not access {AbstractDB.get_display_name(self.name)} "
+                    f"(as {self.name})"
+                )
+                exit()  # TODO: Implement DB_ACCESS_ERROR Exception
 
     def build_db(self) -> bool:
         """Creates new DB file and dumps and initial empty json list object into
@@ -63,40 +72,25 @@ class AbstractDB(ABC):
             ) as db:  # Create database json file and dump message
                 json.dump(msg, db, indent=4)
 
-            print(f"{self.name} created successfully")
+            log.info(f"{self.name} created successfully")
             success = True  # Signal creation of db
 
         except FileExistsError:
-            print(
+            log.warning(
                 f"A {self.db_type} named {self.name} already exists in location "
                 f"{self.dir}..."
             )
-
-            ans_flg = False
-            attempts = 3
-            while not ans_flg and attempts > 0:
-                resp = input("Would you like to choose a different name? (y/n): ")
-
-                match resp:
-                    case "yes" | "y":
-                        ans_flg = True
-                        self.name = input("Enter new name: ")
-                        self.path = Path.joinpath(
-                            self.dir, f"{self.name.replace(' ', '_')}.json"
-                        )
-                        success = self.build_db()
-                    case "no" | "n":
-                        ans_flg = True
-                        print(f"{self.db_type} creation aborted")
-                    case _:
-                        print("Unexpected input, please try again.")
-                        attempts -= 1
-                        continue
+            raise
 
         return success
 
-    def db_add(self, msg: list[dict]):
-        """Add an entry, or multiple, to the db instance. Both runtime and saved to disk"""
+    def db_add(self, msg: list[dict]) -> bool:
+        """Add an entry, or multiple, to the db instance.
+        Both runtime and saved to disk
+
+        Args:
+            :param msg (list[dict]) List of objects to add to the db"""
+
         success = False
 
         self._data += msg  # Update runtime representation of db data
@@ -109,33 +103,34 @@ class AbstractDB(ABC):
                 db.write("\n")  # Add new line to end of db file
                 success = True
         except FileNotFoundError:
-            print(f"No database file found. Double check this location: {self.path}")
+            log.error(
+                f"No database file found. Double check this location:" f" {self.path}"
+            )
 
         return success
 
     def db_read(self) -> bool:
-        """Read information on disk into runtime"""
+        """Read information on disk into runtime."""
         success = False
         try:
             with open(self.path, "r") as db:
                 self._data = json.load(db)
             success = True
-        except FileNotFoundError:
-            print(
-                f"No database file found. Double check this location: {self.path}"
-            )  # TODO: make this a logging statement  # noqa: E501
-            pass
+        except FileNotFoundError as ffe:
+            log.error(
+                f"No database file found at this location: {self.path}", exc_info=ffe
+            )
 
         return success
 
     def db_remove(self):
         """Delete db from db repository."""
         success = False
-        print(f"Removing {self.name} from {self.dir}")
+        log.info(f"Removing {self.name} from {self.dir}")
         Path.unlink(self.path)
         if not self.path.exists():
             success = True
-            print(f"{self.name} removed...")
+            log.info(f"{self.name} removed...")
 
         return success
 

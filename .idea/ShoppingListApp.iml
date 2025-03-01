@@ -8,6 +8,7 @@
       <excludeFolder url="file://$MODULE_DIR$/.venvs/311-pycharm" />
       <excludeFolder url="file://$MODULE_DIR$/.venvs" />
       <excludeFolder url="file://$MODULE_DIR$/src/groshy/.dbs" />
+      <excludeFolder url="file://$MODULE_DIR$/src/groshy/.internal" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.13 (Groshy)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

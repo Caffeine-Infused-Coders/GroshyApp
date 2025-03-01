@@ -1,6 +1,7 @@
 #:kivy 2.3.0
 
 #:import AddEntry groshy.gui.utils
+#:import ScreenType groshy.gui.utils.ScreenType
 
 <RecipeLabel>:
     text: ''
@@ -49,7 +50,7 @@
             size_hint: 0.4, None
             height: 60
             text: 'Back'
-            on_press: root.parent.add_screen(screen_type='bookshelf', name='bookshelf', change=True, new=True, dt=0.5)
+            on_press: root.parent.change_screen(screen_name='bookshelf', screen_type=ScreenType.BOOKSHELF, dt=0.5)
 
 
 

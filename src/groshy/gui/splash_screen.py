@@ -1,8 +1,12 @@
 """Defines opening app screen which reads db data and initializes app data."""
 
 from kivy.uix.screenmanager import Screen
+from kivy.logger import Logger
 
 from groshy.cookbook import CookBook
+from groshy.gui.utils import ScreenType
+
+log = Logger
 
 
 class SplashScreen(Screen):
@@ -24,13 +28,24 @@ class SplashScreen(Screen):
         self.parent.cookbooks = cookbooks  # Save names to screenmanager
 
         if len(cookbooks) > 1:
+            log.info(
+                "Splash: More than one cookbook found, going to bookshelf " "screen..."
+            )
             self.ids.splash_info.text = "loading BookShelf..."
-            self.parent.add_screen(screen_type="bookshelf", name="bookshelf", dt=1)
+            self.parent.change_screen(
+                screen_name="bookshelf", screen_type=ScreenType.BOOKSHELF, dt=1
+            )
 
         elif len(cookbooks) == 1:
             cookbook_name = cookbooks[0]
+            log.info(
+                "Splash: Only one cookbook found, going to table of contents for "
+                f"{cookbook_name.replace('_', ' ')}..."
+            )
             self.ids.splash_info.text = f"Loading {cookbook_name.replace('_', ' ')}..."
-            self.parent.add_screen(screen_type="cookbook", name=cookbook_name, dt=1)
+            self.parent.change_screen(
+                screen_name=cookbook_name, screen_type=ScreenType.COOKBOOK, dt=1
+            )
 
         else:
             self.ids.splash_info.text = "No CookBooks Found"
